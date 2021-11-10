@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const Upload = () => {
   const handleChange = async (e) => {
@@ -19,9 +20,16 @@ const Upload = () => {
     });
 
     const imageUrl = url.split('?')[0];
-    console.log('URL', url);
-    console.log('IMAGEuRL', imageUrl);
-    console.log(response);
+
+    const bookInformation = {
+      imageLink: imageUrl,
+      bookISBN: toString(1222222),
+      bookTittle: 'This is a book',
+      bookAuthor: 'Nkangi Jafri',
+    };
+
+    const sendToDatabase = await axios.post('/api/bookdata/addbook', imageUrl);
+    console.log(sendToDatabase);
   };
 
   return (
