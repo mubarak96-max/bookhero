@@ -1,5 +1,5 @@
 import nc from 'next-connect';
-import connectDB from '../../../Backend/config/db';
+// import connectDB from '../../../Backend/config/db';
 import { generateUploadURL } from '../../../Backend/s3';
 
 const handler = nc();
@@ -16,4 +16,5 @@ handler.get(async (req, res) => {
 
 // Check if name, email or password is provided
 
-export default connectDB(handler);
+export default handler;
+// connectDB(
