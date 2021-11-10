@@ -23,12 +23,15 @@ const Upload = () => {
 
     const bookInformation = {
       imageLink: imageUrl,
-      bookISBN: toString(1222222),
+      bookISBN: '222222',
       bookTittle: 'This is a book',
       bookAuthor: 'Nkangi Jafri',
     };
 
-    const sendToDatabase = await axios.post('/api/bookdata/addbook', imageUrl);
+    const sendToDatabase = await axios.post(
+      '/api/bookdata/addbook',
+      bookInformation,
+    );
     console.log(sendToDatabase);
   };
 

@@ -1,11 +1,12 @@
 import nc from 'next-connect';
-import connectDB from '../../../Backend/config/db';
+import connectDB from '../../../Backend/config/dbConnect';
 import BookData from '../../../Backend/Models/BookData';
 
 const handler = nc();
 handler.post(async (req, res) => {
   try {
     const { imageLink, bookISBN, bookTittle, bookAuthor } = req.body;
+    console.log(req.body);
     var bookData = new BookData({
       imageLink,
       bookISBN,
