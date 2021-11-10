@@ -28,9 +28,9 @@ const Upload = () => {
 
     const bookInformation = {
       imageLink: imageUrl,
-      bookISBN: '222222',
-      bookTittle: 'This is a book',
-      bookAuthor: 'Nkangi Jafri',
+      bookISBN: Isbn,
+      bookTittle: tittle,
+      bookAuthor: author,
     };
 
     const sendToDatabase = await axios.post(
@@ -57,6 +57,7 @@ const Upload = () => {
         label='Author'
         variant='outlined'
         onChange={(e) => {
+          console.log('Changed');
           setAuthor(e.target.value);
         }}
       />
