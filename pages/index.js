@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Upload from '../components/Upload';
 
@@ -25,13 +24,12 @@ export default function Home() {
         <div className={styles.grid}>
           <div className={styles.card}>
             <h2>Upload Image &rarr;</h2>
+            <br />
+
             <Upload />
           </div>
 
-          <div className={styles.card}>
-            <h2>Copy Link &rarr;</h2>
-            <button>Copy Link</button>
-          </div>
+          <div className={styles.card}></div>
 
           <div className={styles.card}>
             <h2>Uploaded Image &rarr;</h2>
