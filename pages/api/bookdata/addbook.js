@@ -1,25 +1,26 @@
 import nc from 'next-connect';
 import connectDB from '../../../Backend/config/db';
-import BookData from '../../../Backend/Models/picturesData';
+import BookData from '../../../Backend/Models/BookData';
 
 const handler = nc();
 handler.post(async (req, res) => {
   try {
-    const { email, browserType, userID } = req.body;
-    var subsciber = new Subscriber({
-      email: email,
-      userID,
-      browserType: browserType,
+    const { imageLink, bookISBN, bookTittle, bookAuthor } = req.body;
+    var bookData = new BookData({
+      imageLink,
+      bookISBN,
+      bookTittle,
+      bookAuthor,
     });
 
     // Create new subscriber
-    const subscribercreated = await subsciber.save();
+    const bookDatacreated = await bookData.save();
 
-    if (!subscribercreated) {
+    if (!bookDatacreated) {
       throw new Error('Saving the email address');
     }
 
-    return res.status(201).send(subscribercreated);
+    return res.status(201).send(bookDatacreated);
   } catch (error) {
     return res.status(500).send(error.message);
   }
