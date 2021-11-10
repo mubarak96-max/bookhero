@@ -6,11 +6,10 @@ const Upload = () => {
   const [tittle, setTittle] = useState('');
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
-  const [Isbn, setIsbn] = useState('');
+  const [Isbn, setISBN] = useState('');
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    const file = e.target.files[0];
 
     // get secure url from our server
     const { url } = await fetch('/api/authaws').then((res) => res.json());
@@ -21,7 +20,7 @@ const Upload = () => {
       headers: {
         'Content-Type': 'image/jpg',
       },
-      body: file,
+      body: image,
     });
 
     const imageUrl = url.split('?')[0];
@@ -78,6 +77,7 @@ const Upload = () => {
           id='contained-button-file'
           type='file'
           onChange={(e) => {
+            // console.log(e.target.files[0]);
             setImage(e.target.files[0]);
           }}
         />
