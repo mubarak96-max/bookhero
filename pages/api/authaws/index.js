@@ -17,4 +17,3 @@ handler.get(async (req, res) => {
 // Check if name, email or password is provided
 
 export default connectDB(handler);
-// connectDB(
