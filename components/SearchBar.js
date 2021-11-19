@@ -1,20 +1,9 @@
 import React from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-
 import { useState } from 'react';
-
-// material
 import { styled, alpha } from '@mui/material/styles';
-import {
-  Box,
-  Input,
-  Slide,
-  Button,
-  InputAdornment,
-  ClickAwayListener,
-  IconButton,
-} from '@mui/material';
+import { Box, Input, Button } from '@mui/material';
 import Search from '@mui/icons-material/Search';
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
@@ -42,37 +31,37 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Searchbar() {
-  const [isOpen, setOpen] = useState(false);
+  const [keyWord, setKeyword] = useState('');
 
-  const handleOpen = () => {
-    setOpen((prev) => !prev);
-  };
+  const onSubmit = async () => {
+    const response = await axios.get('/api/bookdata/searchbooks');
 
-  const handleClose = () => {
-    setOpen(false);
+    console.log(response);
   };
 
   return (
-    <ClickAwayListener onClickAway={handleClose}>
-      <div>
-        <SearchbarStyle>
-          <Search />
-          <Input
-            autoFocus
-            fullWidth
-            placeholder='Search by: tittle, author or ISBN'
-            sx={{
-              mr: 1,
-              fontWeight: 'fontWeightBold',
-              margin: '0px -30px',
-              padding: '0px 40px',
-            }}
-          />
-          <Button variant='contained' onClick={handleClose}>
-            Search
-          </Button>
-        </SearchbarStyle>
-      </div>
-    </ClickAwayListener>
+    <div>
+      <SearchbarStyle>
+        <Search />
+        <Input
+          autoFocus
+          fullWidth
+          placeholder='Search by: tittle, author or ISBN'
+          value={keyWord}
+          onChange={(e) => {
+            setKeyword(e.target.value);
+          }}
+          sx={{
+            mr: 1,
+            fontWeight: 'fontWeightBold',
+            margin: '0px -30px',
+            padding: '0px 40px',
+          }}
+        />
+        <Button variant='contained' onClick={onSubmit}>
+          Search
+        </Button>
+      </SearchbarStyle>
+    </div>
   );
 }
