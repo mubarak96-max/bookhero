@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Input, TextField } from '@mui/material';
 
-const Upload = () => {
+const Upload = ({ getImage }) => {
   const [tittle, setTittle] = useState('');
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
@@ -13,7 +13,6 @@ const Upload = () => {
 
     // get secure url from our server
     const { url } = await fetch('/api/authaws').then((res) => res.json());
-    console.log(url);
     // post the image direclty to the s3 bucket
     const response = await fetch(url, {
       method: 'PUT',
@@ -32,10 +31,17 @@ const Upload = () => {
       bookAuthor: author,
     };
 
+    setAuthor('');
+    setISBN('');
+    setTittle('');
+    setImage('');
+
     const sendToDatabase = await axios.post(
       '/api/bookdata/addbook',
       bookInformation,
     );
+
+    getImage(sendToDatabase.data.imageLink);
 
     console.log(sendToDatabase);
   };
@@ -46,6 +52,7 @@ const Upload = () => {
         id='outlined-basic'
         label='Tittle'
         variant='outlined'
+        value={tittle}
         onChange={(e) => {
           setTittle(e.target.value);
         }}
@@ -55,6 +62,7 @@ const Upload = () => {
         id='outlined-basic'
         label='Author'
         variant='outlined'
+        value={author}
         onChange={(e) => {
           console.log('Changed');
           setAuthor(e.target.value);
@@ -65,6 +73,7 @@ const Upload = () => {
         id='outlined-basic'
         label='ISBN'
         variant='outlined'
+        value={Isbn}
         onChange={(e) => {
           setISBN(e.target.value);
         }}

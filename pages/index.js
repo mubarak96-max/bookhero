@@ -1,8 +1,17 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Upload from '../components/Upload';
+import Image from 'next/image';
 
 export default function Home() {
+  const [imageLink, setImageLink] = useState('');
+
+  const getImage = (link) => {
+    console.log(link);
+    setImageLink(link);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -26,13 +35,21 @@ export default function Home() {
             <h2>Upload Image &rarr;</h2>
             <br />
 
-            <Upload />
+            <Upload getImage={getImage} />
           </div>
 
-          <div className={styles.card}></div>
+          <div className={styles.card}>
+            <p>Upload Book Info</p>
+          </div>
 
           <div className={styles.card}>
             <h2>Uploaded Image &rarr;</h2>
+            <img
+              width='200'
+              height='auto'
+              src={imageLink}
+              alt='Image uploaded'
+            />
           </div>
         </div>
       </main>
