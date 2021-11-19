@@ -4,6 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { Box, Input, Button } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 import axios from 'axios';
+import * as rax from 'retry-axios';
 
 // ----------------------------------------------------------------------
 
@@ -18,14 +19,7 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
   alignItems: 'center',
   height: APPBAR_MOBILE,
   maxWidth: '850px',
-  // backdropFilter: 'blur(6px)',
-  // WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
   padding: theme.spacing(0, 3),
-  // backgroundColor: `${alpha(theme.palette.background.default, 0.72)}`,
-  // [theme.breakpoints.up('md')]: {
-  //   height: APPBAR_DESKTOP,
-  //   padding: theme.spacing(0, 5),
-  // },
 }));
 
 // ----------------------------------------------------------------------
@@ -34,13 +28,42 @@ export default function Searchbar() {
   const [keyWord, setKeyword] = useState('');
 
   const onSubmit = async () => {
-    const response = await axios.get('/api/bookdata/searchbooks');
+    // const response = await axios.get('/api/bookdata/searchbooks', keyWord);
+
+    console.log(keyWord);
+    const body = { keyWord };
+
+    const interceptorId = rax.attach();
+    const response = await axios({
+      method: 'GET',
+      url: '/api/bookdata/searchbooks',
+      raxConfig: {
+        retry: 3,
+        noResponseRetries: 2,
+        retryDelay: 500,
+        httpMethodsToRetry: ['POST', 'PUT', 'GET'],
+
+        onRetryAttempt: (err) => {
+          const cfg = rax.getConfig(err);
+          console.log(
+            `Request failed, Retry attempt #${cfg.currentRetryAttempt}`,
+          );
+        },
+      },
+      params: body, //Order info attached to be received as body
+    });
 
     console.log(response);
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+      }}>
       <SearchbarStyle>
         <Search />
         <Input
