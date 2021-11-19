@@ -29,14 +29,14 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
   alignItems: 'center',
   height: APPBAR_MOBILE,
   maxWidth: '850px',
-  backdropFilter: 'blur(6px)',
-  WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
+  // backdropFilter: 'blur(6px)',
+  // WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
   padding: theme.spacing(0, 3),
-  backgroundColor: `${alpha(theme.palette.background.default, 0.72)}`,
-  [theme.breakpoints.up('md')]: {
-    height: APPBAR_DESKTOP,
-    padding: theme.spacing(0, 5),
-  },
+  // backgroundColor: `${alpha(theme.palette.background.default, 0.72)}`,
+  // [theme.breakpoints.up('md')]: {
+  //   height: APPBAR_DESKTOP,
+  //   padding: theme.spacing(0, 5),
+  // },
 }));
 
 // ----------------------------------------------------------------------
@@ -56,14 +56,18 @@ export default function Searchbar() {
     <ClickAwayListener onClickAway={handleClose}>
       <div>
         <SearchbarStyle>
+          <Search />
           <Input
             autoFocus
             fullWidth
-            // disableUnderline
             placeholder='Search by: tittle, author or ISBN'
-            sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
+            sx={{
+              mr: 1,
+              fontWeight: 'fontWeightBold',
+              margin: '0px -30px',
+              padding: '0px 40px',
+            }}
           />
-          <Search />
           <Button variant='contained' onClick={handleClose}>
             Search
           </Button>
