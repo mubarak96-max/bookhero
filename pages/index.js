@@ -6,10 +6,16 @@ import Image from 'next/image';
 
 export default function Home() {
   const [imageLink, setImageLink] = useState('');
+  const [tittle, setTittle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [ISBN, setISBN] = useState('');
 
-  const getImage = (link) => {
-    console.log(link);
-    setImageLink(link);
+  const getUploadedBookInfo = (info) => {
+    console.log(info);
+    setImageLink(info.imageLink);
+    setTittle(info.bookTittle);
+    setAuthor(info.bookAuthor);
+    setISBN(info.bookISBN);
   };
 
   return (
@@ -35,17 +41,22 @@ export default function Home() {
             <h2>Upload Image &rarr;</h2>
             <br />
 
-            <Upload getImage={getImage} />
+            <Upload getUploadedBookInfo={getUploadedBookInfo} />
           </div>
 
           <div className={styles.card}>
             <p>Upload Book Info</p>
+            <div>
+              <p>Tittle: {tittle}</p>
+              <p>Author: {author}</p>
+              <p>ISBN: {ISBN}</p>
+            </div>
           </div>
 
           <div className={styles.card}>
             <h2>Uploaded Image &rarr;</h2>
             <img
-              width='200'
+              width='200PX'
               height='auto'
               src={imageLink}
               alt='Image uploaded'

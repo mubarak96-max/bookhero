@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Input, TextField } from '@mui/material';
 
-const Upload = ({ getImage }) => {
+const Upload = ({ getUploadedBookInfo }) => {
   const [tittle, setTittle] = useState('');
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
@@ -41,7 +41,7 @@ const Upload = ({ getImage }) => {
       bookInformation,
     );
 
-    getImage(sendToDatabase.data.imageLink);
+    getUploadedBookInfo(sendToDatabase.data);
 
     console.log(sendToDatabase);
   };
@@ -86,8 +86,8 @@ const Upload = ({ getImage }) => {
           id='contained-button-file'
           type='file'
           onChange={(e) => {
-            // console.log(e.target.files[0]);
             setImage(e.target.files[0]);
+            e.target.value = null;
           }}
         />
       </label>
