@@ -101,28 +101,25 @@ export default function Searchbar() {
 
 export async function getServerSideProps(context) {
   await connectDB();
-  const ordersFromDB = await Order.find({}).sort('-createdAt').limit(30);
-  if (!ordersFromDB) {
+  const BookfromDB = await BookData.find({
+    bookTittle: { $regex: 'Think and grow rich', $options: 'i' },
+  });
+
+  console.log(BookfromDB);
+  if (!BookfromDB) {
     return {
       notFound: true,
     };
   }
 
-  const orders = ordersFromDB.map((order, index) => ({
-    orderId: order._id,
-    name:
-      order.shippingDetails.firstName + ' ' + order.shippingDetails.lastName,
-    email: order.shippingDetails.email,
-    isPaid: order.isPaid || order.paymentMethod === 'COD' ? 'Paid' : 'notPaid',
-    phone: order.shippingDetails.phone,
-    payMethod: order.paymentMethod,
-    qty: order.orderDetails.quantity,
-    state: order.orderDetails.totalPrice,
-    date: order.createdAt.toLocaleString().split('T')[0],
-    // date: formatDistanceToNow(new Date(order.createdAt)),
+  const Books = BookfromDB.map((book, index) => ({
+    imageLink: book.imageLink,
+    bookISBN: book.bookISBN,
+    bookTittle: book.bookTittle,
+    bookAuthor: book.bookAuthor,
   }));
 
   return {
-    props: { data: JSON.parse(JSON.stringify(orders)) }, // will be passed to the page component as props
+    props: { data: JSON.parse(JSON.stringify(Books)) }, // will be passed to the page component as props
   };
 }
