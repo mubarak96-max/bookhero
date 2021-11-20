@@ -16,7 +16,7 @@ const SearchBook = () => {
           textAlign: 'center',
           margin: '15px auto 50px',
         }}>
-        This is the search pannel, Search a book by using the book{' '}
+        This is the search pannel, Search a book by using the book
         <strong> tittle, isbn or author.</strong> <br />
         The results will consist of the image for a preview and a link that will
         be added in the shopify excel document

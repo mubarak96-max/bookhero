@@ -1,5 +1,6 @@
 import nc from 'next-connect';
 import BookData from '../../../Backend/Models/BookData';
+import connectDB from '../../../Backend/config/dbConnect';
 
 //Initialise next-connect
 const handler = nc();
@@ -8,22 +9,34 @@ const handler = nc();
 handler.get(async (req, res) => {
   //Search keyword query
 
-  console.log(req.query.keyWord, 'query');
+  try {
+    console.log(req.params.keyword, 'query');
 
-  const keywordCondition = req.query.keyWord
-    ? { bookTittle: { $regex: req.query.keyWord, $options: 'i' } }
-    : {};
-  console.log(keywordCondition);
-  // const keywordCondition = req.body ? req.body : '';
+    const keywordCondition =
+      {
+        bookTittle: { $regex: req.query, $options: 'i' },
+      } || 'This is';
+    console.log(keywordCondition);
 
-  const Book = await BookData.find({
-    $and: [{ ...keywordCondition }],
-  });
+    // const keywordCondition = req.body ? req.body : '';
 
-  console.log(Book);
+    const Book = await BookData.find({
+      bookTittle: { $regex: 'Think and grow r', $options: 'i' },
+    });
 
-  // small letter
-  res.json({ Book });
+    console.log('bOOKS:', Book);
+
+    // small letter
+    res.json({ Book });
+  } catch (error) {
+    console.log(error.message, error);
+  }
 });
-
-export default handler;
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '500kb',
+    },
+  },
+};
+export default connectDB(handler);

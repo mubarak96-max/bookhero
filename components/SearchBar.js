@@ -5,6 +5,8 @@ import { Box, Input, Button } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 import axios from 'axios';
 import * as rax from 'retry-axios';
+import { useRouter } from 'next/router';
+import connectDB from '../Backend/config/dbConnect';
 
 // ----------------------------------------------------------------------
 
@@ -27,8 +29,15 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
 export default function Searchbar() {
   const [keyWord, setKeyword] = useState('');
 
+  const router = useRouter();
+
   const onSubmit = async () => {
     // const response = await axios.get('/api/bookdata/searchbooks', keyWord);
+
+    router.push({
+      pathname: '/',
+      query: { keyword: encodeURI(`${keyWord}`) },
+    });
 
     console.log(keyWord);
     const body = { keyWord };
@@ -36,7 +45,7 @@ export default function Searchbar() {
     const interceptorId = rax.attach();
     const response = await axios({
       method: 'GET',
-      url: '/api/bookdata/searchbooks',
+      url: `/api/bookdata/searchbooks`,
       raxConfig: {
         retry: 3,
         noResponseRetries: 2,
@@ -50,7 +59,6 @@ export default function Searchbar() {
           );
         },
       },
-      params: body, //Order info attached to be received as body
     });
 
     console.log(response);
@@ -63,6 +71,7 @@ export default function Searchbar() {
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        flexDirection: 'column',
       }}>
       <SearchbarStyle>
         <Search />
@@ -85,6 +94,35 @@ export default function Searchbar() {
           Search
         </Button>
       </SearchbarStyle>
+      <div>This is the display</div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  await connectDB();
+  const ordersFromDB = await Order.find({}).sort('-createdAt').limit(30);
+  if (!ordersFromDB) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const orders = ordersFromDB.map((order, index) => ({
+    orderId: order._id,
+    name:
+      order.shippingDetails.firstName + ' ' + order.shippingDetails.lastName,
+    email: order.shippingDetails.email,
+    isPaid: order.isPaid || order.paymentMethod === 'COD' ? 'Paid' : 'notPaid',
+    phone: order.shippingDetails.phone,
+    payMethod: order.paymentMethod,
+    qty: order.orderDetails.quantity,
+    state: order.orderDetails.totalPrice,
+    date: order.createdAt.toLocaleString().split('T')[0],
+    // date: formatDistanceToNow(new Date(order.createdAt)),
+  }));
+
+  return {
+    props: { data: JSON.parse(JSON.stringify(orders)) }, // will be passed to the page component as props
+  };
 }

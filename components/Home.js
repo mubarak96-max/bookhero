@@ -25,7 +25,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className={styles.main}>
+      <div>
         <h1 className={styles.title}>
           Bookhero book Upload - <a href='https://bookhero.in'>bookhero.in</a>
         </h1>
@@ -44,9 +44,9 @@ export default function Home() {
           </div>
 
           <div className={styles.card}>
-            <p>
+            <div>
               <strong>Upload Book Info</strong>
-            </p>
+            </div>
             <div>
               <p>
                 Tittle: <strong>{tittle} </strong>
@@ -70,7 +70,7 @@ export default function Home() {
             />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
