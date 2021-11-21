@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SearchedBook = () => {
-  return <div></div>;
+  return <div>This is a search</div>;
 };
 
 export default SearchedBook;

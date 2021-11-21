@@ -34,10 +34,7 @@ export default function Searchbar() {
   const onSubmit = async () => {
     // const response = await axios.get('/api/bookdata/searchbooks', keyWord);
 
-    router.push({
-      pathname: '/searchbook',
-      query: { keyword: encodeURI(`${keyWord}`) },
-    });
+    router.push(`/searchbook/${keyWord}`);
 
     // console.log(keyWord);
     // const body = { keyWord };
