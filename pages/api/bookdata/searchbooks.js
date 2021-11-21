@@ -15,26 +15,19 @@ handler.get(async (req, res) => {
     console.log(req.query, 'query');
     console.log(req.body, 'body');
 
-    const keywordCondition =
-      {
-        bookTittle: { $regex: req.query, $options: 'i' },
-      } || 'This is';
-    console.log(keywordCondition);
-
     // const keywordCondition = req.body ? req.body : '';
 
     const Book = await BookData.find({
       bookTittle: { $regex: req.query.keyword, $options: 'i' },
     });
 
-    console.log('bOOKS:', Book);
-
     // small letter
-    res.json({ Book });
+    return res.json(Book);
   } catch (error) {
     console.log(error.message, error);
   }
 });
+
 export const config = {
   api: {
     bodyParser: {
@@ -42,4 +35,5 @@ export const config = {
     },
   },
 };
+
 export default connectDB(handler);
