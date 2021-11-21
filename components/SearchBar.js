@@ -1,12 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import { Box, Input, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Input, Button } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 import axios from 'axios';
-import * as rax from 'retry-axios';
-import { useRouter } from 'next/router';
-import connectDB from '../Backend/config/dbConnect';
 
 // ----------------------------------------------------------------------
 
@@ -29,16 +26,12 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
 export default function Searchbar() {
   const [keyWord, setKeyword] = useState('');
 
-  const router = useRouter();
-
   const onSubmit = async () => {
     const response = await axios.get('/api/bookdata/searchbooks', {
       params: { keyword: keyWord },
     });
 
     console.log(response);
-
-    // router.push(`/${keyWord}`);
   };
 
   return (
@@ -74,29 +67,4 @@ export default function Searchbar() {
       <div>This is the display</div>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  await connectDB();
-  const BookfromDB = await BookData.find({
-    bookTittle: { $regex: 'Think and grow rich', $options: 'i' },
-  });
-
-  console.log(BookfromDB);
-  if (!BookfromDB) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const Books = BookfromDB.map((book, index) => ({
-    imageLink: book.imageLink,
-    bookISBN: book.bookISBN,
-    bookTittle: book.bookTittle,
-    bookAuthor: book.bookAuthor,
-  }));
-
-  return {
-    props: { data: JSON.parse(JSON.stringify(Books)) }, // will be passed to the page component as props
-  };
 }

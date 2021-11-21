@@ -16,10 +16,21 @@ handler.get(async (req, res) => {
     console.log(req.body, 'body');
 
     // const keywordCondition = req.body ? req.body : '';
+    // $or: [
+    //   { bookTittle: { $regex: req.query.keyword, $options: 'i' } },
+    //   { bookISBN: { $regex: req.query.keyword, $options: 'i' } },
+    //   { bookTittle: { $regex: req.query.keyword, $options: 'i' } },
+    // ],
 
     const Book = await BookData.find({
-      bookTittle: { $regex: req.query.keyword, $options: 'i' },
+      $or: [
+        { bookTittle: { $regex: req.query.keyword, $options: 'i' } },
+        { bookISBN: { $regex: req.query.keyword, $options: 'i' } },
+        { bookAuthor: { $regex: req.query.keyword, $options: 'i' } },
+      ],
     });
+
+    console.log('Book', Book);
 
     // small letter
     return res.json(Book);
