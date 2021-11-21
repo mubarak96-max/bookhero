@@ -32,33 +32,13 @@ export default function Searchbar() {
   const router = useRouter();
 
   const onSubmit = async () => {
-    // const response = await axios.get('/api/bookdata/searchbooks', keyWord);
+    const response = await axios.get('/api/bookdata/searchbooks', {
+      params: { keyword: keyWord },
+    });
 
-    router.push(`/searchbook/${keyWord}`);
+    console.log(response);
 
-    // console.log(keyWord);
-    // const body = { keyWord };
-
-    // const interceptorId = rax.attach();
-    // const response = await axios({
-    //   method: 'GET',
-    //   url: `/api/bookdata/searchbooks`,
-    //   raxConfig: {
-    //     retry: 3,
-    //     noResponseRetries: 2,
-    //     retryDelay: 500,
-    //     httpMethodsToRetry: ['POST', 'PUT', 'GET'],
-
-    //     onRetryAttempt: (err) => {
-    //       const cfg = rax.getConfig(err);
-    //       console.log(
-    //         `Request failed, Retry attempt #${cfg.currentRetryAttempt}`,
-    //       );
-    //     },
-    //   },
-    // });
-
-    // console.log(response);
+    // router.push(`/${keyWord}`);
   };
 
   return (

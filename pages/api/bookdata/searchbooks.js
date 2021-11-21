@@ -24,7 +24,7 @@ handler.get(async (req, res) => {
     // const keywordCondition = req.body ? req.body : '';
 
     const Book = await BookData.find({
-      bookTittle: { $regex: 'Think and grow r', $options: 'i' },
+      bookTittle: { $regex: req.query.keyword, $options: 'i' },
     });
 
     console.log('bOOKS:', Book);
