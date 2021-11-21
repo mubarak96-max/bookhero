@@ -3,14 +3,17 @@ import BookData from '../../../Backend/Models/BookData';
 import connectDB from '../../../Backend/config/dbConnect';
 
 //Initialise next-connect
-const handler = nc();
+const handler = nc({ attachParams: true });
 
 //POST REQUEST TO CASHFREE
 handler.get(async (req, res) => {
   //Search keyword query
 
   try {
-    console.log(req.params.keyword, 'query');
+    console.log(req.params.wild, 'params');
+    console.log(req.params.keyword, 'params');
+    console.log(req.query, 'query');
+    console.log(req.body, 'body');
 
     const keywordCondition =
       {

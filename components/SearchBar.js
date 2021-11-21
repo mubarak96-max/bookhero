@@ -35,33 +35,33 @@ export default function Searchbar() {
     // const response = await axios.get('/api/bookdata/searchbooks', keyWord);
 
     router.push({
-      pathname: '/',
+      pathname: '/searchbook',
       query: { keyword: encodeURI(`${keyWord}`) },
     });
 
-    console.log(keyWord);
-    const body = { keyWord };
+    // console.log(keyWord);
+    // const body = { keyWord };
 
-    const interceptorId = rax.attach();
-    const response = await axios({
-      method: 'GET',
-      url: `/api/bookdata/searchbooks`,
-      raxConfig: {
-        retry: 3,
-        noResponseRetries: 2,
-        retryDelay: 500,
-        httpMethodsToRetry: ['POST', 'PUT', 'GET'],
+    // const interceptorId = rax.attach();
+    // const response = await axios({
+    //   method: 'GET',
+    //   url: `/api/bookdata/searchbooks`,
+    //   raxConfig: {
+    //     retry: 3,
+    //     noResponseRetries: 2,
+    //     retryDelay: 500,
+    //     httpMethodsToRetry: ['POST', 'PUT', 'GET'],
 
-        onRetryAttempt: (err) => {
-          const cfg = rax.getConfig(err);
-          console.log(
-            `Request failed, Retry attempt #${cfg.currentRetryAttempt}`,
-          );
-        },
-      },
-    });
+    //     onRetryAttempt: (err) => {
+    //       const cfg = rax.getConfig(err);
+    //       console.log(
+    //         `Request failed, Retry attempt #${cfg.currentRetryAttempt}`,
+    //       );
+    //     },
+    //   },
+    // });
 
-    console.log(response);
+    // console.log(response);
   };
 
   return (
