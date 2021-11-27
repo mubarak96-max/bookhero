@@ -70,7 +70,11 @@ export default function Searchbar() {
 
       <div>
         {searchResult.map((book, index) => (
-          <BookShowComponent book={book} index={index} />
+          <BookShowComponent
+            book={book}
+            index={index}
+            key={`${book.bookTittle}-${index}`}
+          />
         ))}
       </div>
     </div>
