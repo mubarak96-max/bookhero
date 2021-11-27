@@ -1,10 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Input, Button } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 import axios from 'axios';
-import styles from '../styles/Home.module.css';
+import BookShowComponent from './BookShowComponent';
 
 // ----------------------------------------------------------------------
 
@@ -26,18 +25,16 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
 
 export default function Searchbar() {
   const [keyWord, setKeyword] = useState('');
-
-  const [imageLink, setImageLink] = useState('');
-  const [tittle, setTittle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [ISBN, setISBN] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
 
   const onSubmit = async () => {
     const response = await axios.get('/api/bookdata/searchbooks', {
       params: { keyword: keyWord },
     });
 
-    console.log(response);
+    console.log(response.data);
+
+    setSearchResult(response.data);
   };
 
   return (
@@ -70,30 +67,11 @@ export default function Searchbar() {
           Search
         </Button>
       </SearchbarStyle>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
-        }}>
-        <div className={styles.card}>
-          <div>
-            <strong> Book Info</strong>
-          </div>
-          <div>
-            <p>
-              Tittle: <strong>{tittle} </strong>
-            </p>
-            <p>
-              Author: <strong>{author} </strong>
-            </p>
-            <p>
-              ISBN: <strong>{ISBN} </strong>
-            </p>
-          </div>
-        </div>
-        <div>This is for image</div>
+
+      <div>
+        {searchResult.map((book, index) => (
+          <BookShowComponent book={book} index={index} />
+        ))}
       </div>
     </div>
   );
