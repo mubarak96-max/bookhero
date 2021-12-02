@@ -10,32 +10,38 @@ const Upload = (props) => {
     setFiles(e.target.files);
   };
 
+  const csvToJson = async (fileToConvert) => {
+    const FileConverted = [];
+    Papa.parse(fileToConvert, {
+      header: true,
+      complete: function (results, file) {
+        console.log(file);
+
+        FileConverted.push(...results.data);
+      },
+    });
+
+    //   for (let i = 0; i < results.data.length; i++) {
+    //     results.data[i].location = files[i].name.split('.')[0];
+    //   }
+
+    return FileConverted;
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const arrayCheck = [];
     let count = 0;
     for (let i = 0; i < files.length; i++) {
-      console.log(files[i]);
-      const fileName = files[i].name.split('.')[0];
-      Papa.parse(files[i], {
-        header: true,
-        complete: function (results) {
-          for (let i = 0; i < results.data.length; i++) {
-            results.data[i].location = fileName;
-          }
+      console.log(`File No${i}`, files[i].name.split('.')[0]);
 
-          arrayCheck.push(...results.data);
-          count++;
+      const csvs = await csvToJson(files[i]);
+      console.log('csvs', csvs);
 
-          console.log(files.length, count);
-
-          if (files.length === count) {
-            console.log(arrayCheck);
-            compareArrays(arrayCheck);
-          }
-        },
-      });
+      //   if (files.length === count) {
+      //     compareArrays(arrayCheck);
+      //   }
     }
   };
 
