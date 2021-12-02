@@ -1,6 +1,7 @@
 //React component that that has an input field for files and a button to upload the file.
 import Papa from 'papaparse';
 import React, { useState, useEffect } from 'react';
+import compareArrays from '../Functions/compareArrays';
 
 const Upload = (props) => {
   const [files, setFiles] = useState('');
@@ -13,6 +14,7 @@ const Upload = (props) => {
     e.preventDefault();
 
     const arrayCheck = [];
+    let count = 0;
     for (let i = 0; i < files.length; i++) {
       console.log(files[i]);
       const fileName = files[i].name.split('.')[0];
@@ -23,12 +25,14 @@ const Upload = (props) => {
             results.data[i].location = fileName;
           }
 
-          arrayCheck.push(results.data);
+          arrayCheck.push(...results.data);
+          count++;
 
-          console.log(files.length, arrayCheck.length);
+          console.log(files.length, count);
 
-          if (arrayCheck.length === files.length) {
+          if (files.length === count) {
             console.log(arrayCheck);
+            compareArrays(arrayCheck);
           }
         },
       });

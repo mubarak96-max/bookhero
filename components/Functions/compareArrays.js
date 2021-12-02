@@ -1,19 +1,22 @@
-//A function that compares 4 arrays and return the simmilarity
-//The function returns array of the simmilarity
-function compareArrays(array1, array2, array3, array4) {
-  var array = [array1, array2, array3, array4];
-  var count = 0;
-  var countArray = [];
-  for (var i = 0; i < array.length; i++) {
-    for (var j = 0; j < array[i].length; j++) {
-      if (array[i][j] == array[i][j + 1]) {
-        count++;
+const compareArrays = (array) => {
+  //Iterate through the array to find the same values
+
+  console.log(array[0].Title);
+  let same = [];
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 1; j < array.length; j++) {
+      if (
+        array[i].Title === array[j].Title &&
+        i !== j &&
+        array[i].Title !== ''
+      ) {
+        same.push(array[i]);
       }
     }
-    countArray.push(count);
-    count = 0;
   }
-  return countArray;
-}
+  //Return the array of same values
+  //   console.log('same', same);
+  return same;
+};
 
 export default compareArrays;
