@@ -10,35 +10,32 @@ const Upload = (props) => {
     setFiles(e.target.files);
   };
 
-  const csvToJson = async (fileToConvert) => {
-    const FileConverted = [];
+  const csvToJson = async (fileToConvert, fileName) => {
+    let convertedArray = [];
     Papa.parse(fileToConvert, {
       header: true,
       complete: function (results, file) {
-        console.log(file);
+        for (let i = 0; i < results.data.length; i++) {
+          results.data[i].location = fileName;
+          convertedArray.push(results.data[i]);
+        }
 
-        FileConverted.push(...results.data);
+        console.log('convertedArray', convertedArray);
       },
     });
 
-    //   for (let i = 0; i < results.data.length; i++) {
-    //     results.data[i].location = files[i].name.split('.')[0];
-    //   }
-
-    return FileConverted;
+    return convertedArray;
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const arrayCheck = [];
-    let count = 0;
     for (let i = 0; i < files.length; i++) {
-      console.log(`File No${i}`, files[i].name.split('.')[0]);
+      const filename = files[i].name.split('.')[0];
 
-      const csvs = await csvToJson(files[i]);
+      const csvs = await csvToJson(files[i], filename);
+
       console.log('csvs', csvs);
-
       //   if (files.length === count) {
       //     compareArrays(arrayCheck);
       //   }
