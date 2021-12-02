@@ -1,22 +1,48 @@
 //React component that that has an input field for files and a button to upload the file.
-import { parse } from 'papa-parser';
+import Papa from 'papaparse';
+import React, { useState, useEffect } from 'react';
 
 const Upload = (props) => {
-  const [file, setFile] = useState('');
-  const [filename, setFilename] = useState('Choose File');
-  const [uploadedFile, setUploadedFile] = useState({});
+  const [files, setFiles] = useState('');
 
   const onChange = (e) => {
-    setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
+    setFiles(e.target.files);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const arrayCheck = [];
+    for (let i = 0; i < files.length; i++) {
+      console.log(files[i]);
+      const fileName = files[i].name.split('.')[0];
+      Papa.parse(files[i], {
+        header: true,
+        complete: function (results) {
+          for (let i = 0; i < results.data.length; i++) {
+            results.data[i].location = fileName;
+          }
+
+          arrayCheck.push(results.data);
+
+          console.log(files.length, arrayCheck.length);
+
+          if (arrayCheck.length === files.length) {
+            console.log(arrayCheck);
+          }
+        },
+      });
+    }
   };
 
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <input type='file' onChange={onChange} />
+        <input type='file' multiple onChange={onChange} />
         <button type='submit'>Upload</button>
       </div>
     </form>
   );
 };
+
+export default Upload;
