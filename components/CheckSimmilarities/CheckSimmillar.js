@@ -11,35 +11,43 @@ const Upload = (props) => {
   };
 
   const csvToJson = async (fileToConvert, fileName) => {
-    let convertedArray = [];
-    Papa.parse(fileToConvert, {
-      header: true,
-      complete: function (results, file) {
-        for (let i = 0; i < results.data.length; i++) {
-          results.data[i].location = fileName;
-          convertedArray.push(results.data[i]);
-        }
-
-        console.log('convertedArray', convertedArray);
-      },
-    });
-
-    return convertedArray;
+    const parseFile = () => {
+      return new Promise((resolve) => {
+        Papa.parse(fileToConvert, {
+          header: true,
+          complete: (results) => {
+            resolve(results.data);
+          },
+        });
+      });
+    };
+    let parsedData = await parseFile();
+    for (let i = 0; i < parsedData.length; i++) {
+      if (parsedData[i].Title !== '') {
+        parsedData[i].location = fileName;
+      }
+    }
+    return parsedData;
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    let completeConvertedArray = [];
+
     for (let i = 0; i < files.length; i++) {
       const filename = files[i].name.split('.')[0];
 
       const csvs = await csvToJson(files[i], filename);
-
-      console.log('csvs', csvs);
-      //   if (files.length === count) {
-      //     compareArrays(arrayCheck);
-      //   }
+      console.log(csvs);
+      completeConvertedArray.push(csvs);
     }
+    console.log('completeConvertedArray', completeConvertedArray);
+
+    //Make the array of arrays into one array
+    const finalArray = [].concat.apply([], completeConvertedArray);
+
+    console.log('completeConvertedArray', finalArray);
   };
 
   return (
