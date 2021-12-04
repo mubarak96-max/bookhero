@@ -15,7 +15,7 @@ const compareArrays = (array) => {
     }
   }
   //Return the array of same values
-  //   console.log('same', same);
+  console.log('same', same);
   return same;
 };
 

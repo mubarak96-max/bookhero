@@ -47,7 +47,7 @@ const Upload = (props) => {
     //Make the array of arrays into one array
     const finalArray = [].concat.apply([], completeConvertedArray);
 
-    console.log('completeConvertedArray', finalArray);
+    compareArrays(finalArray);
   };
 
   return (
