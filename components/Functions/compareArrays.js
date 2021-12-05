@@ -1,22 +1,27 @@
-const compareArrays = (array) => {
-  //Iterate through the array to find the same values
-
-  console.log(array[0].Title);
-  let same = [];
-  for (let i = 0; i < array.length; i++) {
-    for (let j = 1; j < array.length; j++) {
-      if (
-        array[i].Title === array[j].Title &&
-        i !== j &&
-        array[i].Title !== ''
-      ) {
-        same.push(array[i]);
-      }
+const findDuplicates = (arr) => {
+  var obj = {};
+  var result = [];
+  for (let i = 0; i < arr.length; i++) {
+    let current = arr[i];
+    // console.log(current);
+    if (obj[current.Title] === undefined) {
+      obj[current.Title] = [current.location];
+    } else {
+      obj[current.Title].push(current.location);
     }
   }
-  //Return the array of same values
-  console.log('same', same);
-  return same;
+
+  console.log(obj);
+  for (var key in obj) {
+    if (obj[key].length > 1) {
+      result.push({
+        Title: key,
+        value: obj[key],
+      });
+    }
+  }
+
+  console.log(result);
 };
 
-export default compareArrays;
+export default findDuplicates;
