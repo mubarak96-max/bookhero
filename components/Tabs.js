@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Home from './Home';
 import SearchBook from './SearchBook';
+import { Button, Link } from '@mui/material';
+import Upload from './CheckSimmilarities/CheckSimmillar';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -55,6 +57,7 @@ const DisplayTabs = () => {
           aria-label='basic tabs example'>
           <Tab label='Upload a BOOK' {...a11yProps(0)} />
           <Tab label='Search for books' {...a11yProps(1)} />
+          <Tab label='Check Simmilars' {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -62,6 +65,20 @@ const DisplayTabs = () => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <SearchBook />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Link to='/checksimillars' passHref>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              marginTop: '100px',
+              height: '40vh',
+            }}>
+            <Upload />
+          </div>
+        </Link>
       </TabPanel>
     </Box>
   );
