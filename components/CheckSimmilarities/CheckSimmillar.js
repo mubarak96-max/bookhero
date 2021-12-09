@@ -1,7 +1,7 @@
 //React component that that has an input field for files and a button to upload the file.
 import Papa from 'papaparse';
 import React, { useState, useEffect } from 'react';
-import compareArrays from '../Functions/compareArrays';
+import findDuplicates from '../Functions/findDuplicates';
 
 const Upload = (props) => {
   const [files, setFiles] = useState('');
@@ -47,7 +47,8 @@ const Upload = (props) => {
     //Make the array of arrays into one array
     const finalArray = [].concat.apply([], completeConvertedArray);
 
-    compareArrays(finalArray);
+    const final = findDuplicates(finalArray);
+    console.log('final', final);
   };
 
   return (

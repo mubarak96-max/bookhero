@@ -16,12 +16,12 @@ const findDuplicates = (arr) => {
     if (obj[key].length > 1) {
       result.push({
         Title: key,
-        value: obj[key],
+        locations: obj[key],
       });
     }
   }
 
-  console.log(result);
+  return result;
 };
 
 export default findDuplicates;
