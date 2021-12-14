@@ -1,9 +1,15 @@
 import React from 'react';
 import styles from '../styles/Home.module.css';
+import { Button } from '@mui/material';
 
 const BookShowComponent = (props) => {
   const { imageLink, bookTittle, bookAuthor, bookISBN } = props.book;
-  const { index } = props;
+
+  const copyToClipboard = () => {
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText(imageLink);
+  };
+
   return (
     <div
       style={{
@@ -26,6 +32,14 @@ const BookShowComponent = (props) => {
           <p>
             ISBN: <strong>{bookISBN} </strong>
           </p>
+          <br />
+
+          <Button
+            variant='contained'
+            component='span'
+            onClick={copyToClipboard}>
+            Copy image Link
+          </Button>
         </div>
       </div>
       <div className={styles.card}>
