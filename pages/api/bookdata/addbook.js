@@ -6,7 +6,6 @@ const handler = nc();
 handler.post(async (req, res) => {
   try {
     const { imageLink, bookISBN, bookTittle, bookAuthor } = req.body;
-    console.log(req.body);
     var bookData = new BookData({
       imageLink,
       bookISBN,

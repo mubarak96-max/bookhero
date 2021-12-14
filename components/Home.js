@@ -14,10 +14,7 @@ export default function Home() {
 
   const [copied, setCopied] = useState(false);
 
-  console.log(blob);
-
   const getUploadedBookInfo = (info) => {
-    console.log(info);
     setImageLink(info.imageLink);
     setTittle(info.bookTittle);
     setAuthor(info.bookAuthor);
@@ -26,7 +23,6 @@ export default function Home() {
 
   //Get the blob to display the image before uploading
   const getBlob = (dataURL) => {
-    console.log(dataURL), 'dataURL';
     setBlob(dataURL);
   };
 

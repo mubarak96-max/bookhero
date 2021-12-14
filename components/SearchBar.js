@@ -32,8 +32,6 @@ export default function Searchbar() {
       params: { keyword: keyWord },
     });
 
-    console.log(response.data);
-
     setSearchResult(response.data);
   };
 

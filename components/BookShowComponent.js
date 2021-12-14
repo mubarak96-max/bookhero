@@ -4,7 +4,6 @@ import styles from '../styles/Home.module.css';
 const BookShowComponent = (props) => {
   const { imageLink, bookTittle, bookAuthor, bookISBN } = props.book;
   const { index } = props;
-  console.log(index, bookAuthor);
   return (
     <div
       style={{

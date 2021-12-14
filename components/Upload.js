@@ -44,8 +44,6 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       );
 
       getUploadedBookInfo(sendToDatabase.data);
-
-      console.log(sendToDatabase);
     } else {
       setUploadError(true);
     }
@@ -69,7 +67,6 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
         variant='outlined'
         value={author}
         onChange={(e) => {
-          console.log('Changed');
           setAuthor(e.target.value);
         }}
       />

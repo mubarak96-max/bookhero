@@ -46,10 +46,9 @@ const Upload = (props) => {
       const filename = files[i].name.split('.')[0];
 
       const csvs = await csvToJson(files[i], filename);
-      console.log(csvs);
+
       completeConvertedArray.push(csvs);
     }
-    console.log('completeConvertedArray', completeConvertedArray);
 
     //Make the array of arrays into one array
     const finalArray = [].concat.apply([], completeConvertedArray);
@@ -57,7 +56,6 @@ const Upload = (props) => {
     const final = findDuplicates(finalArray);
 
     const url = arrayToCSV(final, 'duplicates.csv');
-    console.log(url);
 
     setDownloadSource(url);
     setLoading(false);

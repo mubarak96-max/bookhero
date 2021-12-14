@@ -10,11 +10,6 @@ handler.get(async (req, res) => {
   //Search keyword query
 
   try {
-    console.log(req.params.wild, 'params');
-    console.log(req.params.keyword, 'params');
-    console.log(req.query, 'query');
-    console.log(req.body, 'body');
-
     // const keywordCondition = req.body ? req.body : '';
     // $or: [
     //   { bookTittle: { $regex: req.query.keyword, $options: 'i' } },
@@ -29,8 +24,6 @@ handler.get(async (req, res) => {
         { bookAuthor: { $regex: req.query.keyword, $options: 'i' } },
       ],
     });
-
-    console.log('Book', Book);
 
     // small letter
     return res.json(Book);
