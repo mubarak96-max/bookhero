@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Upload from './Upload';
+import { Button } from '@mui/material';
 
 export default function Home() {
   const [imageLink, setImageLink] = useState('');
@@ -20,9 +21,16 @@ export default function Home() {
     setISBN(info.bookISBN);
   };
 
+  //Get the blob to display the image before uploading
   const getBlob = (dataURL) => {
     console.log(dataURL), 'dataURL';
     setBlob(dataURL);
+  };
+
+  const copyToClipboard = () => {
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText(imageLink);
+    setCopied(true);
   };
 
   return (
@@ -73,6 +81,19 @@ export default function Home() {
               <p>
                 ISBN: <strong>{ISBN} </strong>
               </p>
+              <p>
+                Image Link: <strong>{imageLink} </strong>
+              </p>
+              <br />
+
+              {imageLink && (
+                <Button
+                  variant='contained'
+                  component='span'
+                  onClick={copyToClipboard}>
+                  Copy to Clipboard
+                </Button>
+              )}
             </div>
           </div>
         </div>

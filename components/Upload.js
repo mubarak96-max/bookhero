@@ -97,7 +97,7 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       <br />
       <br />
       <Button variant='contained' component='span' onClick={handleUpload}>
-        Upload
+        Confirm Upload
       </Button>
     </>
   );
