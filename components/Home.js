@@ -11,6 +11,9 @@ export default function Home() {
   const [ISBN, setISBN] = useState('');
 
   const [blob, setBlob] = useState('');
+
+  const [copied, setCopied] = useState(false);
+
   console.log(blob);
 
   const getUploadedBookInfo = (info) => {
@@ -31,6 +34,11 @@ export default function Home() {
     /* Copy the text inside the text field */
     navigator.clipboard.writeText(imageLink);
     setCopied(true);
+    setImageLink('');
+    setTittle('');
+    setAuthor('');
+    setISBN('');
+    setBlob('');
   };
 
   return (
@@ -81,9 +89,7 @@ export default function Home() {
               <p>
                 ISBN: <strong>{ISBN} </strong>
               </p>
-              <p>
-                Image Link: <strong>{imageLink} </strong>
-              </p>
+
               <br />
 
               {imageLink && (
@@ -91,7 +97,7 @@ export default function Home() {
                   variant='contained'
                   component='span'
                   onClick={copyToClipboard}>
-                  Copy to Clipboard
+                  Copy image Link
                 </Button>
               )}
             </div>

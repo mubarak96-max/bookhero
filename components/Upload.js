@@ -103,6 +103,12 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
           Confirm Upload
         </Button>
       )}
+      {uploadError && (
+        <h2>
+          Upload Error, Reload the page and try again, if it persists contact
+          Jafari
+        </h2>
+      )}
     </>
   );
 };
