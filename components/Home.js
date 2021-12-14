@@ -9,12 +9,20 @@ export default function Home() {
   const [author, setAuthor] = useState('');
   const [ISBN, setISBN] = useState('');
 
+  const [blob, setBlob] = useState('');
+  console.log(blob);
+
   const getUploadedBookInfo = (info) => {
     console.log(info);
     setImageLink(info.imageLink);
     setTittle(info.bookTittle);
     setAuthor(info.bookAuthor);
     setISBN(info.bookISBN);
+  };
+
+  const getBlob = (dataURL) => {
+    console.log(dataURL), 'dataURL';
+    setBlob(dataURL);
   };
 
   return (
@@ -40,7 +48,15 @@ export default function Home() {
             <h2>Upload Image &rarr;</h2>
             <br />
 
-            <Upload getUploadedBookInfo={getUploadedBookInfo} />
+            <Upload
+              getUploadedBookInfo={getUploadedBookInfo}
+              getBlob={getBlob}
+            />
+          </div>
+
+          <div className={styles.card}>
+            <h2>Uploaded Image &rarr;</h2>
+            <img width='200PX' height='auto' src={blob} alt='Image uploaded' />
           </div>
 
           <div className={styles.card}>
@@ -58,16 +74,6 @@ export default function Home() {
                 ISBN: <strong>{ISBN} </strong>
               </p>
             </div>
-          </div>
-
-          <div className={styles.card}>
-            <h2>Uploaded Image &rarr;</h2>
-            <img
-              width='200PX'
-              height='auto'
-              src={imageLink}
-              alt='Image uploaded'
-            />
           </div>
         </div>
       </div>

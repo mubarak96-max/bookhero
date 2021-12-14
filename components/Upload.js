@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Input, TextField } from '@mui/material';
 
-const Upload = ({ getUploadedBookInfo }) => {
+const Upload = ({ getUploadedBookInfo, getBlob }) => {
+  const [blob, setBlob] = useState('');
+
   const [tittle, setTittle] = useState('');
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
@@ -87,6 +89,7 @@ const Upload = ({ getUploadedBookInfo }) => {
           type='file'
           onChange={(e) => {
             setImage(e.target.files[0]);
+            getBlob(URL.createObjectURL(e.target.files[0]));
             e.target.value = null;
           }}
         />
