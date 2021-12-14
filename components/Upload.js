@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Button, Input, TextField } from '@mui/material';
 
 const Upload = ({ getUploadedBookInfo, getBlob }) => {
-  const [blob, setBlob] = useState('');
-
+  const [uploadError, setUploadError] = useState('');
   const [tittle, setTittle] = useState('');
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
@@ -24,28 +23,32 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       body: image,
     });
 
-    const imageUrl = url.split('?')[0];
+    if (response.status === 200) {
+      const imageUrl = url.split('?')[0];
 
-    const bookInformation = {
-      imageLink: imageUrl,
-      bookISBN: Isbn,
-      bookTittle: tittle,
-      bookAuthor: author,
-    };
+      const bookInformation = {
+        imageLink: imageUrl,
+        bookISBN: Isbn,
+        bookTittle: tittle,
+        bookAuthor: author,
+      };
 
-    setAuthor('');
-    setISBN('');
-    setTittle('');
-    setImage('');
+      setAuthor('');
+      setISBN('');
+      setTittle('');
+      setImage('');
 
-    const sendToDatabase = await axios.post(
-      '/api/bookdata/addbook',
-      bookInformation,
-    );
+      const sendToDatabase = await axios.post(
+        '/api/bookdata/addbook',
+        bookInformation,
+      );
 
-    getUploadedBookInfo(sendToDatabase.data);
+      getUploadedBookInfo(sendToDatabase.data);
 
-    console.log(sendToDatabase);
+      console.log(sendToDatabase);
+    } else {
+      setUploadError(true);
+    }
   };
 
   return (
@@ -90,15 +93,16 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
           onChange={(e) => {
             setImage(e.target.files[0]);
             getBlob(URL.createObjectURL(e.target.files[0]));
-            e.target.value = null;
           }}
         />
       </label>
       <br />
       <br />
-      <Button variant='contained' component='span' onClick={handleUpload}>
-        Confirm Upload
-      </Button>
+      {tittle && author && Isbn && image && (
+        <Button variant='contained' component='span' onClick={handleUpload}>
+          Confirm Upload
+        </Button>
+      )}
     </>
   );
 };
