@@ -112,9 +112,9 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
         }}>
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the files here ...</p>
+          <p>Drop the Image here ...</p>
         ) : (
-          <p>Drag and drop some files here, or click to select files</p>
+          <p>Drag and drop image here, or click to select image</p>
         )}
       </div>
       <br />
