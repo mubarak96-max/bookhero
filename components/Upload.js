@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { Button, Input, TextField } from '@mui/material';
-import DragAndDrop from './DragAndDrop';
 
 const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [uploadError, setUploadError] = useState('');
