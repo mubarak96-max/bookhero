@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { Button, Input, TextField } from '@mui/material';
+import DragAndDrop from './DragAndDrop';
 
 const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [uploadError, setUploadError] = useState('');
@@ -8,6 +10,13 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
   const [Isbn, setISBN] = useState('');
+
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+    getBlob(URL.createObjectURL(acceptedFiles[0]));
+    setImage(acceptedFiles[0]);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -82,7 +91,7 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       />
       <br />
       <br />
-      <label htmlFor='contained-button-file'>
+      {/* <label htmlFor='contained-button-file'>
         <Input
           accept='image/*'
           id='contained-button-file'
@@ -92,7 +101,22 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
             getBlob(URL.createObjectURL(e.target.files[0]));
           }}
         />
-      </label>
+      </label> */}
+      <div
+        {...getRootProps()}
+        style={{
+          border: '2px dotted blue',
+          height: '100px',
+          maxWidth: '250px',
+          textAlign: 'center',
+        }}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div>
       <br />
       <br />
       {tittle && author && Isbn && image && (
@@ -106,6 +130,7 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
           Jafari
         </h2>
       )}
+      {/* <DragAndDrop /> */}
     </>
   );
 };
