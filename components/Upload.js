@@ -123,7 +123,7 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
             loadingPosition='start'
             startIcon={<SaveIcon />}
             variant='contained'>
-            Confirm Upload
+            {uploading ? 'Uploading....' : 'Confirm Upload'}
           </LoadingButton>
         </>
       )}
