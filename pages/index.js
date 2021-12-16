@@ -11,8 +11,7 @@ const Home = () => {
         <a href='https://nkangi.com' target='_blank' rel='noopener noreferrer'>
           Developed By
           <span className={styles.logo}>
-            {/* <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} /> */}
-            <strong>Nkangi Jafari</strong>
+            <strong>Nkangi Jafari by (nkangi.com)</strong>
           </span>
         </a>
       </footer>

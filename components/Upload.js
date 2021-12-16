@@ -57,6 +57,8 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       );
 
       getUploadedBookInfo(sendToDatabase.data);
+
+      setUploading(false);
     } else {
       setUploadError(true);
     }
