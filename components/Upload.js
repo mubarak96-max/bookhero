@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
-import { Button, Input, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import SaveIcon from '@mui/icons-material/Save';
 
 const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [uploadError, setUploadError] = useState('');
@@ -9,6 +11,7 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
   const [Isbn, setISBN] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
@@ -19,6 +22,8 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
+
+    setUploading(true);
 
     // get secure url from our server
     const { url } = await fetch('/api/authaws').then((res) => res.json());
@@ -90,17 +95,6 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       />
       <br />
       <br />
-      {/* <label htmlFor='contained-button-file'>
-        <Input
-          accept='image/*'
-          id='contained-button-file'
-          type='file'
-          onChange={(e) => {
-            setImage(e.target.files[0]);
-            getBlob(URL.createObjectURL(e.target.files[0]));
-          }}
-        />
-      </label> */}
       <div
         {...getRootProps()}
         style={{
@@ -119,9 +113,17 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       <br />
       <br />
       {tittle && author && Isbn && image && (
-        <Button variant='contained' component='span' onClick={handleUpload}>
-          Confirm Upload
-        </Button>
+        <>
+          <LoadingButton
+            color='primary'
+            onClick={handleUpload}
+            loading={uploading}
+            loadingPosition='start'
+            startIcon={<SaveIcon />}
+            variant='contained'>
+            Confirm Upload
+          </LoadingButton>
+        </>
       )}
       {uploadError && (
         <h2>
@@ -129,7 +131,6 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
           Jafari
         </h2>
       )}
-      {/* <DragAndDrop /> */}
     </>
   );
 };
