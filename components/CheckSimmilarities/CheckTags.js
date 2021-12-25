@@ -1,8 +1,7 @@
 //React component that that has an input field for files and a button to upload the file.
-
 import React, { useState } from 'react';
 import arrayToCSV from '../Functions/arrayToCSV';
-import findDuplicates from '../Functions/findDuplicates';
+import findTagsDuplicates from '../Functions/findTagsDuplicates';
 import csvToJson from '../Functions/CsvToJson';
 // import { LoadingButton } from '@mui/lab';
 // import { SaveIcon } from '@mui/icons-material';
@@ -34,43 +33,52 @@ const Upload = (props) => {
     //Make the array of arrays into one array
     const finalArray = [].concat.apply([], completeConvertedArray);
 
-    const final = findDuplicates(finalArray);
+    const final = findTagsDuplicates(finalArray);
 
-    const url = arrayToCSV(final, 'duplicates.csv');
+    const url = arrayToCSV(final, 'All tags.csv');
 
     setDownloadSource(url);
     setLoading(false);
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div>
-        <input type='file' multiple onChange={onChange} />
-        <button type='submit'>Upload</button>
-      </div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        marginTop: '100px',
+        height: '40vh',
+      }}>
+      <form onSubmit={onSubmit}>
+        <div>
+          <input type='file' multiple onChange={onChange} />
+          <button type='submit'>Upload</button>
+        </div>
 
-      {downloadSource && (
-        <div
-          style={{
-            marginTop: '60px',
-          }}>
-          <a
-            href={downloadSource}
-            download
+        {downloadSource && (
+          <div
             style={{
-              backgroundColor: 'DodgerBlue',
-              border: 'none',
-              color: 'white',
-              padding: '12px 30px',
-              cursor: 'pointer',
-              fontSize: '20px',
               marginTop: '60px',
             }}>
-            Download
-          </a>
-        </div>
-      )}
-    </form>
+            <a
+              href={downloadSource}
+              download
+              style={{
+                backgroundColor: 'DodgerBlue',
+                border: 'none',
+                color: 'white',
+                padding: '12px 30px',
+                cursor: 'pointer',
+                fontSize: '20px',
+                marginTop: '60px',
+              }}>
+              Download
+            </a>
+          </div>
+        )}
+      </form>
+    </div>
   );
 };
 

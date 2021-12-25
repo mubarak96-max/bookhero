@@ -6,8 +6,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Home from './Home';
 import SearchBook from './SearchBook';
-import { Button, Link } from '@mui/material';
+import { Link } from '@mui/material';
 import Upload from './CheckSimmilarities/CheckSimmillar';
+import CheckTags from './CheckSimmilarities/CheckTags';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -58,6 +59,7 @@ const DisplayTabs = () => {
           <Tab label='Upload a BOOK' {...a11yProps(0)} />
           <Tab label='Search for books' {...a11yProps(1)} />
           <Tab label='Check Simmilars' {...a11yProps(2)} />
+          <Tab label='Check Tags' {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -79,6 +81,9 @@ const DisplayTabs = () => {
             <Upload />
           </div>
         </Link>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <CheckTags />
       </TabPanel>
     </Box>
   );
