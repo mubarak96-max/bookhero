@@ -69,7 +69,7 @@ const DisplayTabs = () => {
         <SearchBook />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Link to='/checksimillars' passHref>
+        <Link to='/checksimillars' passHref={true}>
           <div
             style={{
               display: 'flex',

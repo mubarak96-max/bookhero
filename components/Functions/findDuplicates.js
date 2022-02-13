@@ -19,6 +19,7 @@ const findDuplicates = (arr) => {
     }
   }
 
+  console.log(result);
   return result;
 };
 
