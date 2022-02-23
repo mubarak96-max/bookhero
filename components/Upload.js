@@ -25,9 +25,11 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
 
     setUploading(true);
 
+    try {
     // get secure url from our server
     const { url } = await fetch('/api/authaws').then((res) => res.json());
     // post the image direclty to the s3 bucket
+    
     const response = await fetch(url, {
       method: 'PUT',
       headers: {
@@ -62,7 +64,10 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
     } else {
       setUploadError(true);
     }
+  } catch(error) {
+    setUploadError(true);
   };
+  }
 
   return (
     <>
