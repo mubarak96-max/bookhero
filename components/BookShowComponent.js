@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { Button } from '@mui/material';
 
@@ -44,7 +45,12 @@ const BookShowComponent = (props) => {
       </div>
       <div className={styles.card}>
         <h2>Uploaded Image &rarr;</h2>
-        <img width='200PX' height='auto' src={imageLink} alt='Image uploaded' />
+        <Image
+          width='200px'
+          height='auto'
+          src={imageLink}
+          alt='Image uploaded'
+        />
       </div>
     </div>
   );

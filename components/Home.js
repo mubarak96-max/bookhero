@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Upload from './Upload';
 import { Button } from '@mui/material';
@@ -68,7 +69,12 @@ export default function Home() {
 
           <div className={styles.card}>
             <h2>Uploaded Image &rarr;</h2>
-            <img width='200PX' height='auto' src={blob} alt='Image uploaded' />
+            <Image
+              width='200px'
+              height='200px'
+              src={blob ? blob : '/favicon.ico'}
+              alt='Image uploaded'
+            />
           </div>
 
           <div className={styles.card}>

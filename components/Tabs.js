@@ -86,9 +86,9 @@ const DisplayTabs = () => {
         <CheckTags />
       </TabPanel>
 
-      <TabPanel>
+      {/* <TabPanel>
         <AddToFirebase />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 };

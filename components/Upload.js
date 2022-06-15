@@ -13,11 +13,14 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [Isbn, setISBN] = useState('');
   const [uploading, setUploading] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles);
-    getBlob(URL.createObjectURL(acceptedFiles[0]));
-    setImage(acceptedFiles[0]);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      console.log(acceptedFiles);
+      getBlob(URL.createObjectURL(acceptedFiles[0]));
+      setImage(acceptedFiles[0]);
+    },
+    [getBlob],
+  );
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handleUpload = async (e) => {
@@ -26,48 +29,48 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
     setUploading(true);
 
     try {
-    // get secure url from our server
-    const { url } = await fetch('/api/authaws').then((res) => res.json());
-    // post the image direclty to the s3 bucket
-    
-    const response = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'image/jpg',
-      },
-      body: image,
-    });
+      // get secure url from our server
+      const { url } = await fetch('/api/authaws').then((res) => res.json());
+      // post the image direclty to the s3 bucket
 
-    if (response.status === 200) {
-      const imageUrl = url.split('?')[0];
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'image/jpg',
+        },
+        body: image,
+      });
 
-      const bookInformation = {
-        imageLink: imageUrl,
-        bookISBN: Isbn,
-        bookTittle: tittle,
-        bookAuthor: author,
-      };
+      if (response.status === 200) {
+        const imageUrl = url.split('?')[0];
 
-      setAuthor('');
-      setISBN('');
-      setTittle('');
-      setImage('');
+        const bookInformation = {
+          imageLink: imageUrl,
+          bookISBN: Isbn,
+          bookTittle: tittle,
+          bookAuthor: author,
+        };
 
-      const sendToDatabase = await axios.post(
-        '/api/bookdata/addbook',
-        bookInformation,
-      );
+        setAuthor('');
+        setISBN('');
+        setTittle('');
+        setImage('');
 
-      getUploadedBookInfo(sendToDatabase.data);
+        const sendToDatabase = await axios.post(
+          '/api/bookdata/addbook',
+          bookInformation,
+        );
 
-      setUploading(false);
-    } else {
+        getUploadedBookInfo(sendToDatabase.data);
+
+        setUploading(false);
+      } else {
+        setUploadError(true);
+      }
+    } catch (error) {
       setUploadError(true);
     }
-  } catch(error) {
-    setUploadError(true);
   };
-  }
 
   return (
     <>

@@ -2,17 +2,20 @@ import React, { useEffect } from 'react';
 import DisplayTabs from '../components/Tabs';
 import styles from '../styles/Home.module.css';
 import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const Home = () => {
   useEffect(() => {
-    // Add a new document in collection "cities"
-    // (async  => await setDoc(doc(db, "cities", "LA"), {
-    //   name: "Los Angeles",
-    //   state: "CA",
-    //   country: "USA"
-    // }))();
-
-    async;
+    console.log('useEffect');
+    (async () => {
+      const sendToDatabase = await setDoc(doc(db, 'cities', 'LA'), {
+        name: 'Los Angeles',
+        state: 'CA',
+        country: 'USA',
+      });
+      console.log('sgsg');
+      console.log(sendToDatabase);
+    })();
   }, []);
 
   return (
