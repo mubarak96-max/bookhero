@@ -85,6 +85,10 @@ const DisplayTabs = () => {
       <TabPanel value={value} index={3}>
         <CheckTags />
       </TabPanel>
+
+      <TabPanel>
+        <AddToFirebase />
+      </TabPanel>
     </Box>
   );
 };
