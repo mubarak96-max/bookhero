@@ -8,6 +8,7 @@ import Home from './Home';
 import SearchBook from './SearchBook';
 import { Link } from '@mui/material';
 import Upload from './CheckSimmilarities/CheckSimmillar';
+import AddToFirebase from './AddToFirebase';
 import CheckTags from './CheckSimmilarities/CheckTags';
 
 const TabPanel = (props) => {
@@ -60,6 +61,7 @@ const DisplayTabs = () => {
           <Tab label='Search for books' {...a11yProps(1)} />
           <Tab label='Check Simmilars' {...a11yProps(2)} />
           <Tab label='Check Tags' {...a11yProps(3)} />
+          <Tab label='Add Books to Database' {...a11yProps(4)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -86,9 +88,9 @@ const DisplayTabs = () => {
         <CheckTags />
       </TabPanel>
 
-      {/* <TabPanel>
+      <TabPanel value={value} index={4}>
         <AddToFirebase />
-      </TabPanel> */}
+      </TabPanel>
     </Box>
   );
 };
