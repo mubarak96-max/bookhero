@@ -5,7 +5,6 @@ import { storage } from '../firebase';
 
 const AddToFirebase = (props) => {
   const [files, setFiles] = useState('');
-  const [downloadSource, setDownloadSource] = useState('');
   const [loading, setLoading] = React.useState(false);
 
   const onChange = (e) => {
