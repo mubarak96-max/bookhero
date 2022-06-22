@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "killPorts": "npx kill-port 5000, 9199, 8085, 9000 ,8080,  5001, 9099"
   },
   "dependencies": {
     "@emotion/cache": "^11.5.0",

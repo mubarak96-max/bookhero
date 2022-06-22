@@ -20,14 +20,21 @@ admin.initializeApp();
 exports.uploadCsvDataToFirestore = functions.storage
   .object()
   .onFinalize(async (object) => {
-    const tempFilePath = path.join(os.tmpdir(), fileName);
     const fileBucket = object.bucket;
+const bucket = admin.storage().bucket(fileBucket);
+
     const filePath = object.name;
     const fileName = filePath.split('/').pop();
     const fileNameWithoutExtension = fileName.split('.')[0];
+    const tempFilePath = path.join(os.tmpdir(), fileName);
+
+    functions.logger.log('File name: ', fileName);
+    functions.logger.log('fileBucket: ', fileBucket);
+    functions.logger.log('filePath: ', filePath);
+    functions.logger.log('tempFilePath: ', tempFilePath);
 
     //Download the file from the bucket
-    const bucket = admin.storage().bucket(fileBucket);
+    
     await bucket.file(filePath).download({ destination: tempFilePath });
 
     try {
@@ -57,3 +64,13 @@ exports.uploadCsvDataToFirestore = functions.storage
 
     //end of if
   }); //end of exports.uploadToFirestore
+
+
+  //Listen to the firebase storage bucket and trigger the function when a file is uploaded
+  // Download the file from the bucket
+
+  exports.downloadCsvDataFromFirestore = functions.storage
+  .object()
+  .onFinalize(async (object) => {
+    const fileBucket = object.bucket;
+

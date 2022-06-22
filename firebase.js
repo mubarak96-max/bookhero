@@ -4,7 +4,7 @@ import { getFirestore } from 'firebase/firestore';
 
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
-import { getStorage } from 'firebase/storage';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,5 +31,6 @@ const storage = getStorage();
 connectAuthEmulator(auth, 'http://localhost:9099');
 connectFirestoreEmulator(db, 'localhost', 8080);
 connectFunctionsEmulator(functions, 'localhost', 5001);
+connectStorageEmulator(storage, 'localhost', 4000);
 
 export { auth, db, functions, storage };
