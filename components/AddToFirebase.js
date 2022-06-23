@@ -1,7 +1,8 @@
 //React component that that has an input field for files and a button to upload the file.
 import React, { useState } from 'react';
-import { ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../firebase';
+import { db } from '../firebase';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import csvToJson from './Functions/CsvToJson';
 
 const AddToFirebase = (props) => {
   const [files, setFiles] = useState('');
@@ -17,13 +18,45 @@ const AddToFirebase = (props) => {
     e.preventDefault();
     setLoading(true);
 
-    const storageRef = ref(storage, 'documents/csv.csv');
+    //Get the uploaded csvs to json array
+    let completeConvertedArray = [];
 
-    // 'file' comes from the Blob or File API
-    uploadBytes(storageRef, files).then((snapshot) => {
-      console.log('Uploaded a blob or file!', snapshot);
+    for (let i = 0; i < files.length; i++) {
+      const filename = files[i].name.split('.')[0];
+
+      const csvs = await csvToJson(files[i], filename);
+
+      completeConvertedArray.push(csvs);
+    }
+
+    const finalArray = [].concat.apply([], completeConvertedArray);
+
+    let count = 0;
+
+    for (let i = 0; i < finalArray.length; i++) {
+      console.log(finalArray[i]);
+
+      if (finalArray[i].Title === '') {
+        continue;
+      }
+
+      const docRef = await addDoc(collection(db, 'availableBooks'), {
+        title: finalArray[i].Title,
+        barcode: finalArray[i]['Variant Barcode'],
+        price: finalArray[i]['Variant Price'],
+        sku: finalArray[i]['Variant SKU'],
+        number: 1,
+      });
+
+      count += 1;
+    }
+
+    const getAllDocs = await getDocs(collection(db, 'availableBooks'));
+    getAllDocs.forEach((doc) => {
+      console.log(doc.id, ' => ', doc.data());
     });
 
+    console.log('Count', count);
     setLoading(false);
   };
 
