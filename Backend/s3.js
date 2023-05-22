@@ -6,7 +6,7 @@ const randomBytes = promisify(crypto.randomBytes);
 
 // dotenv.config()
 
-const region = 'us-east-2';
+const region = 'us-east-1';
 const bucketName = 'bookhero-book-image';
 const accessKeyId = process.env.AWS_ACCESS_ID;
 const secretAccessKey = process.env.AWS_SECRET;
