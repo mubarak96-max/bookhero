@@ -7,7 +7,7 @@ const randomBytes = promisify(crypto.randomBytes);
 // dotenv.config()
 
 const region = 'us-east-2';
-const bucketName = 'bookheropics';
+const bucketName = 'bookhero-book-image';
 const accessKeyId = process.env.AWS_ACCESS_ID;
 const secretAccessKey = process.env.AWS_SECRET;
 
@@ -15,7 +15,7 @@ const s3 = new aws.S3({
   region,
   accessKeyId,
   secretAccessKey,
-  signatureVersion: 'v4',
+  signatureVersion: 'v4'
 });
 
 export async function generateUploadURL() {
@@ -25,7 +25,7 @@ export async function generateUploadURL() {
   const params = {
     Bucket: bucketName,
     Key: `${imageName}.jpg`,
-    Expires: 60,
+    Expires: 60
   };
 
   const uploadURL = await s3.getSignedUrlPromise('putObject', params);

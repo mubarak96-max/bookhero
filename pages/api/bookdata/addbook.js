@@ -1,16 +1,17 @@
-import nc from 'next-connect';
+import nextConnect, { createRouter } from 'next-connect';
 import connectDB from '../../../Backend/config/dbConnect';
 import BookData from '../../../Backend/Models/BookData';
 
-const handler = nc();
-handler.post(async (req, res) => {
+// const handler = nc();
+const router = createRouter();
+router.post(async (req, res) => {
   try {
     const { imageLink, bookISBN, bookTittle, bookAuthor } = req.body;
     var bookData = new BookData({
       imageLink,
       bookISBN,
       bookTittle,
-      bookAuthor,
+      bookAuthor
     });
 
     // Create new subscriber
@@ -26,4 +27,4 @@ handler.post(async (req, res) => {
   }
 });
 
-export default connectDB(handler);
+export default connectDB(router);

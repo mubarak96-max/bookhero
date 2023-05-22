@@ -1,10 +1,11 @@
-import nc from 'next-connect';
+import nc, { createRouter } from 'next-connect';
 import connectDB from '../../../Backend/config/dbConnect';
 import { generateUploadURL } from '../../../Backend/s3';
 
-const handler = nc();
+// const handler = nc();
+const router = createRouter();
 
-handler.get(async (req, res) => {
+router.get(async (req, res) => {
   try {
     const url = await generateUploadURL();
 
@@ -16,4 +17,4 @@ handler.get(async (req, res) => {
 
 // Check if name, email or password is provided
 
-export default connectDB(handler);
+export default connectDB(router);

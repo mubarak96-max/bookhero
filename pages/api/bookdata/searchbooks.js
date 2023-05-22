@@ -1,4 +1,4 @@
-import nc from 'next-connect';
+import nextConnect from 'next-connect';
 import BookData from '../../../Backend/Models/BookData';
 import connectDB from '../../../Backend/config/dbConnect';
 
@@ -21,8 +21,8 @@ handler.get(async (req, res) => {
       $or: [
         { bookTittle: { $regex: req.query.keyword, $options: 'i' } },
         { bookISBN: { $regex: req.query.keyword, $options: 'i' } },
-        { bookAuthor: { $regex: req.query.keyword, $options: 'i' } },
-      ],
+        { bookAuthor: { $regex: req.query.keyword, $options: 'i' } }
+      ]
     });
 
     // small letter
@@ -35,9 +35,9 @@ handler.get(async (req, res) => {
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '500kb',
-    },
-  },
+      sizeLimit: '500kb'
+    }
+  }
 };
 
 export default connectDB(handler);
