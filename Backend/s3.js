@@ -18,6 +18,28 @@ const s3 = new aws.S3({
   signatureVersion: 'v4'
 });
 
+const corsParams = {
+  Bucket: bucketName,
+  CORSConfiguration: {
+    CORSRules: [
+      {
+        AllowedHeaders: ['*'],
+        AllowedMethods: ['GET', 'HEAD'],
+        AllowedOrigins: ['http://localhost:3000'],
+        ExposeHeaders: []
+      }
+    ]
+  }
+};
+
+s3.putBucketCors(corsParams, function (err, data) {
+  if (err) {
+    console.error(err);
+  } else {
+    // successful response
+  }
+});
+
 export async function generateUploadURL() {
   const rawBytes = await randomBytes(16);
   const imageName = rawBytes.toString('hex');
