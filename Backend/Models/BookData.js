@@ -1,16 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, { model, models, Schema } from 'mongoose';
 
-const BookDataSchema = mongoose.Schema(
+const BookDataSchema = new Schema(
   {
     imageLink: { type: String },
     bookISBN: { type: String },
     bookTittle: { type: String },
-    bookAuthor: { type: String },
+    bookAuthor: { type: String }
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-const BookData =
-  mongoose.models.BookData || mongoose.model('BookData', BookDataSchema);
+const BookData = models.BookData || model('BookData', BookDataSchema);
 
 export default BookData;
