@@ -70,10 +70,10 @@ export default function Home() {
           <div className={styles.card}>
             <h2>Uploaded Image &rarr;</h2>
             <Image
-              width='200px'
-              height='200px'
+              width={200}
+              height={200}
               src={blob ? blob : '/favicon.ico'}
-              alt='Image uploaded'
+              alt='Image uploaded' 
             />
           </div>
 

@@ -8,7 +8,7 @@ import Home from './Home';
 import SearchBook from './SearchBook';
 import { Link } from '@mui/material';
 import Upload from './CheckSimmilarities/CheckSimmillar';
-import AddToFirebase from './AddToFirebase';
+// import AddToFirebase from './AddToFirebase';
 import CheckTags from './CheckSimmilarities/CheckTags';
 
 const TabPanel = (props) => {
@@ -20,7 +20,8 @@ const TabPanel = (props) => {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}>
+      {...other}
+    >
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -33,13 +34,13 @@ const TabPanel = (props) => {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
   };
 }
 
@@ -56,12 +57,13 @@ const DisplayTabs = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label='basic tabs example'>
+          aria-label='basic tabs example'
+        >
           <Tab label='Upload a BOOK' {...a11yProps(0)} />
           <Tab label='Search for books' {...a11yProps(1)} />
           <Tab label='Check Simmilars' {...a11yProps(2)} />
           <Tab label='Check Tags' {...a11yProps(3)} />
-          <Tab label='Add Books to Database' {...a11yProps(4)} />
+          {/* <Tab label='Add Books to Database' {...a11yProps(4)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -78,8 +80,9 @@ const DisplayTabs = () => {
               justifyContent: 'center',
               alignItems: 'flex-start',
               marginTop: '100px',
-              height: '40vh',
-            }}>
+              height: '40vh'
+            }}
+          >
             <Upload />
           </div>
         </Link>
@@ -88,9 +91,9 @@ const DisplayTabs = () => {
         <CheckTags />
       </TabPanel>
 
-      <TabPanel value={value} index={4}>
+      {/* <TabPanel value={value} index={4}>
         <AddToFirebase />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 };
