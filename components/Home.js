@@ -73,7 +73,7 @@ export default function Home() {
               width={200}
               height={200}
               src={blob ? blob : '/favicon.ico'}
-              alt='Image uploaded' 
+              alt='Image uploaded'
             />
           </div>
 
@@ -98,7 +98,8 @@ export default function Home() {
                 <Button
                   variant='contained'
                   component='span'
-                  onClick={copyToClipboard}>
+                  onClick={copyToClipboard}
+                >
                   Copy image Link
                 </Button>
               )}
