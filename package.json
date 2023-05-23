@@ -18,14 +18,12 @@
     "@mui/material": "^5.13.1",
     "aws-sdk": "^2.1381.0",
     "axios": "^1.4.0",
-    "csv-parser": "^3.0.0",
     "mongoose": "^7.2.0",
     "next": "^13.4.3",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-dropzone": "^11.4.2",
-    "retry-axios": "^3.0.0"
+    "react-dropzone": "^11.4.2"
   },
   "devDependencies": {
     "eslint": "7",
