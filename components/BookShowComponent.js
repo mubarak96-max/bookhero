@@ -17,8 +17,9 @@ const BookShowComponent = (props) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        textAlign: 'center',
-      }}>
+        textAlign: 'center'
+      }}
+    >
       <div className={styles.card}>
         <div>
           <strong> Book Info</strong>
@@ -38,19 +39,15 @@ const BookShowComponent = (props) => {
           <Button
             variant='contained'
             component='span'
-            onClick={copyToClipboard}>
+            onClick={copyToClipboard}
+          >
             Copy image Link
           </Button>
         </div>
       </div>
       <div className={styles.card}>
         <h2>Uploaded Image &rarr;</h2>
-        <Image
-          width='200px'
-          height='auto'
-          src={imageLink}
-          alt='Image uploaded'
-        />
+        <Image width={200} height={200} src={imageLink} alt='Image uploaded' />
       </div>
     </div>
   );

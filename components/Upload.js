@@ -39,8 +39,12 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
         body: image
       });
 
+      console.log('response', response);
+
       if (response.status === 200) {
         const imageUrl = url.split('?')[0];
+
+        console.log(imageUrl, 'image');
 
         const bookInformation = {
           imageLink: imageUrl,
@@ -59,7 +63,9 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
           bookInformation
         );
 
-        getUploadedBookInfo(sendToDatabase.data);
+        // console.log('data', sendToDatabase?.data);
+
+        getUploadedBookInfo(sendToDatabase.data?.bookDatacreated);
       } else {
         throw new Error('Failed to upload image');
       }
@@ -111,7 +117,8 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
           height: '100px',
           maxWidth: '250px',
           textAlign: 'center'
-        }}>
+        }}
+      >
         <input {...getInputProps()} />
         {isDragActive ? (
           <p>Drop the Image here ...</p>
@@ -129,7 +136,8 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
             loading={uploading}
             loadingPosition='start'
             startIcon={<SaveIcon />}
-            variant='contained'>
+            variant='contained'
+          >
             {uploading ? 'Uploading....' : 'Confirm Upload'}
           </LoadingButton>
         </>

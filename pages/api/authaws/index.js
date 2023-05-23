@@ -3,7 +3,7 @@ import connectDB from '../../../Backend/config/dbConnect';
 import { generateUploadURL } from '../../../Backend/s3';
 
 export default async function handler(req, res) {
-  await connectDB();
+  // await connectDB();
 
   try {
     const url = await generateUploadURL();
@@ -14,6 +14,10 @@ export default async function handler(req, res) {
     console.error(error);
     return res.status(500).json({ error: error.message });
   }
+
+  // if (req.method === 'PUT') {
+
+  // }
 }
 
 // const handler = nc();

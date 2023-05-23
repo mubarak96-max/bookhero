@@ -2,26 +2,28 @@ import nextConnect, { createRouter } from 'next-connect';
 import connectDB from '../../../Backend/config/dbConnect';
 import BookData from '../../../Backend/Models/BookData';
 
-const addBook = async () => {
+const addBook = async (req, res) => {
   await connectDB();
 
-  try {
-    const Book = await BookData.create({
-      imageLink,
-      bookISBN,
-      bookTittle,
-      bookAuthor
-    });
+  // console.log('req body', req.body);
 
-    const bookDatacreated = await Book.save();
+  if (req.method === 'POST') {
+    try {
+      const Book = await BookData.create(req.body);
 
-    if (!bookDatacreated) {
-      throw new Error('Saving the email address');
+      const bookDatacreated = await Book.save();
+
+      if (!bookDatacreated) {
+        throw new Error('Saving the email address');
+      }
+
+      res.status(201).json({ bookDatacreated });
+
+      console.log('book data', bookDatacreated);
+    } catch (err) {
+      console.log(err);
+      // return res.status(500).send(error.message);
     }
-
-    return res.status(201).send(bookDatacreated);
-  } catch (err) {
-    return res.status(500).send(error.message);
   }
 };
 
