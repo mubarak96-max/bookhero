@@ -1,5 +1,3 @@
-import nc, { createRouter } from 'next-connect';
-import connectDB from '../../../Backend/config/dbConnect';
 import { generateUploadURL } from '../../../Backend/s3';
 
 export default async function handler(req, res) {

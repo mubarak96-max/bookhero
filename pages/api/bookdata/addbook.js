@@ -1,4 +1,3 @@
-import nextConnect, { createRouter } from 'next-connect';
 import connectDB from '../../../Backend/config/dbConnect';
 import BookData from '../../../Backend/Models/BookData';
 

@@ -8,7 +8,6 @@ import Home from './Home';
 import SearchBook from './SearchBook';
 import { Link } from '@mui/material';
 import Upload from './CheckSimmilarities/CheckSimmillar';
-// import AddToFirebase from './AddToFirebase';
 import CheckTags from './CheckSimmilarities/CheckTags';
 
 const TabPanel = (props) => {
@@ -20,8 +19,7 @@ const TabPanel = (props) => {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -57,8 +55,7 @@ const DisplayTabs = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label='basic tabs example'
-        >
+          aria-label='basic tabs example'>
           <Tab label='Upload a BOOK' {...a11yProps(0)} />
           <Tab label='Search for books' {...a11yProps(1)} />
           <Tab label='Check Simmilars' {...a11yProps(2)} />
@@ -81,8 +78,7 @@ const DisplayTabs = () => {
               alignItems: 'flex-start',
               marginTop: '100px',
               height: '40vh'
-            }}
-          >
+            }}>
             <Upload />
           </div>
         </Link>
@@ -90,10 +86,6 @@ const DisplayTabs = () => {
       <TabPanel value={value} index={3}>
         <CheckTags />
       </TabPanel>
-
-      {/* <TabPanel value={value} index={4}>
-        <AddToFirebase />
-      </TabPanel> */}
     </Box>
   );
 };

@@ -1,4 +1,3 @@
-import nextConnect from 'next-connect';
 import BookData from '../../../Backend/Models/BookData';
 import connectDB from '../../../Backend/config/dbConnect';
 
