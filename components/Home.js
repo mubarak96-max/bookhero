@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import Upload from './Upload';
-import { Button } from '@mui/material';
+import { useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Upload from "./Upload";
+import { Button } from "@mui/material";
 
 export default function Home() {
-  const [imageLink, setImageLink] = useState('');
-  const [tittle, setTittle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [ISBN, setISBN] = useState('');
+  const [imageLink, setImageLink] = useState("");
+  const [tittle, setTittle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [ISBN, setISBN] = useState("");
 
-  const [blob, setBlob] = useState('');
+  const [blob, setBlob] = useState("");
 
   const [copied, setCopied] = useState(false);
 
@@ -31,24 +31,24 @@ export default function Home() {
     /* Copy the text inside the text field */
     navigator.clipboard.writeText(imageLink);
     setCopied(true);
-    setImageLink('');
-    setTittle('');
-    setAuthor('');
-    setISBN('');
-    setBlob('');
+    setImageLink("");
+    setTittle("");
+    setAuthor("");
+    setISBN("");
+    setBlob("");
   };
 
   return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
-        <meta name='description' content='Upload Pictures' />
-        <link rel='icon' href='/favicon.ico' />
+        <meta name="description" content="Upload Pictures" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div>
         <h1 className={styles.title}>
-          Bookhero book Upload - <a href='https://bookhero.in'>bookhero.in</a>
+          Bookhero book Upload - <a href="https://bookhero.ae">bookhero.ae</a>
         </h1>
 
         <p className={styles.description}>
@@ -72,8 +72,8 @@ export default function Home() {
             <Image
               width={200}
               height={200}
-              src={blob ? blob : '/favicon.ico'}
-              alt='Image uploaded'
+              src={blob ? blob : "/favicon.ico"}
+              alt="Image uploaded"
             />
           </div>
 
@@ -96,8 +96,8 @@ export default function Home() {
 
               {imageLink && (
                 <Button
-                  variant='contained'
-                  component='span'
+                  variant="contained"
+                  component="span"
                   onClick={copyToClipboard}
                 >
                   Copy image Link

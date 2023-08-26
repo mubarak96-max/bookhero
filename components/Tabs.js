@@ -9,7 +9,7 @@ import SearchBook from "./SearchBook";
 import { Link } from "@mui/material";
 import Upload from "./CheckSimmilarities/CheckSimmillar";
 import CheckTags from "./CheckSimmilarities/CheckTags";
-import InvertoryCheck from "./InvertoryCheck";
+import InventoryManagement from "./inventory/InventoryManagement";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -94,7 +94,7 @@ const DisplayTabs = () => {
       </TabPanel>
 
       <TabPanel value={value} index={4}>
-        <InvertoryCheck />
+        <InventoryManagement />
       </TabPanel>
     </Box>
   );
