@@ -15,7 +15,7 @@ import convertFileToJson from "../../Functions/convertToJson";
 import Swal from "sweetalert2";
 
 const buttonStyle = {
-  margin: "8px", // Adjust margin as needed
+  margin: "8px" // Adjust margin as needed
 };
 
 const InventoryMatching = (props) => {
@@ -92,7 +92,7 @@ const InventoryMatching = (props) => {
             ["Inventory Quantity"]: Number(matchingItem["St 33 a Villa 24"]),
             SKU: matchingItem?.SKU,
             ["To be placed"]: scanned?.Quantity,
-            Placed: "",
+            Placed: ""
           });
         } else {
           nonMatchingItems.push({
@@ -105,7 +105,7 @@ const InventoryMatching = (props) => {
             Dimensions: scanned?.Dimensions,
             Plot: scanned?.Plot,
             PurchasePrice: scanned["Purchase Price"],
-            Pages: scanned?.Pages,
+            Pages: scanned?.Pages
           });
         }
       });
@@ -230,7 +230,7 @@ const InventoryMatching = (props) => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            maxWidth: "700px",
+            maxWidth: "700px"
           }}
         >
           <div>
@@ -251,7 +251,7 @@ const InventoryMatching = (props) => {
               style={{
                 marginBottom: 8,
                 marginTop: 5,
-                display: "block",
+                display: "block"
               }}
             >
               <Button
@@ -287,7 +287,7 @@ const InventoryMatching = (props) => {
               style={{
                 marginBottom: 8,
                 marginTop: 5,
-                display: "block",
+                display: "block"
               }}
             >
               <Button
@@ -307,7 +307,7 @@ const InventoryMatching = (props) => {
                     marginBottom: "10px",
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center",
+                    alignItems: "center"
                   }}
                 >
                   <Typography
@@ -349,7 +349,7 @@ const InventoryMatching = (props) => {
                 display: "block",
                 fontSize: "17px",
                 color: "darkblue",
-                fontWeight: "600",
+                fontWeight: "600"
               }}
             >
               {noOfExisting} books need to be placed.
@@ -362,7 +362,7 @@ const InventoryMatching = (props) => {
                 display: "block",
                 fontSize: "17px",
                 color: "darkgreen",
-                fontWeight: "600",
+                fontWeight: "600"
               }}
             >
               {noOfNew} book(s) needs to be processed.
@@ -405,7 +405,7 @@ const InventoryMatching = (props) => {
         </>
       )}
 
-      {matchingDataURL && (
+      {noOfExisting > 0 && matchingDataURL && (
         <div style={{ marginTop: "5px" }}>
           <Button
             variant="contained"
@@ -416,6 +416,22 @@ const InventoryMatching = (props) => {
             style={buttonStyle}
           >
             Download matching books
+          </Button>
+        </div>
+      )}
+
+      {noOfExisting < 1 && matchingDataURL && (
+        <div style={{ marginTop: "5px" }}>
+          <Button
+            disabled
+            variant="contained"
+            color="primary"
+            startIcon={<CloudDownloadIcon />}
+            href={matchingDataURL}
+            download="matchingBooks.csv"
+            style={buttonStyle}
+          >
+            No matching books
           </Button>
         </div>
       )}
