@@ -1,0 +1,708 @@
+User
+<!-- header start -->
+{% capture sectionId %}{{ section.id }}{% endcapture %}
+<div class="header">
+  {% if section.settings.show_topbar %}
+
+  <div
+    class="top-header top-header-dark {% if settings.enable_box_layout and settings.box_layout == 'box_layout_3' %}border-bottom-grey{% endif %}"
+  >
+    {% if section.settings.header_width == 'standard-width' %}
+    <div class="container">
+      {% else %}
+      <div class="container-fluid">
+        {% endif %}
+        <div class="row" style="justify-content: flex-end">
+          <div class="col-lg-6 col-md-12" style="text-align: right">
+            <div
+              class="header-social-app"
+              style="padding: {{ section.settings.topbar_padding }};"
+            ></div>
+            {% if section.settings.header_width == 'standard-width' %}
+          </div>
+          {% else %}
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <header
+    class="header-5 {% unless template == 'index' %} header-5-inner {% endunless %} {% if settings.display_sticky_header %} sticky {% endif %}"
+  >
+    <div class="mobile-fix-option"></div>
+    {% if section.settings.header_width == 'standard-width' %}
+    <div class="container">
+      {% else %}
+      <div class="container-fluid">
+        {% endif %}
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="main-menu">
+              <div class="menu-left">
+                {% if section.settings.logo %}
+                <div
+                  class="brand-logo"
+                  itemscope
+                  itemtype="http://schema.org/Organization"
+                ></div>
+                {% else %}
+                <h2 itemprop="logo">
+                  <a href="/" itemprop="url">{{ shop.name }}</a>
+                </h2>
+                {% endif %}
+              </div>
+              <div class="menu-center">
+                <div>
+                  <nav id="main-nav">
+                    <div class="toggle-nav">
+                      <i class="fa fa-bars sidebar-bar"></i>
+                    </div>
+                    <!-- Horizontal menu -->
+                    <ul
+                      id="main-menu"
+                      class="sm pixelstrap sm-horizontal {% if settings.enable_rtl %} sm-rtl{% endif %}"
+                    >
+                      <li>
+                        <div class="mobile-back text-right"></div>
+                      </li>
+                      {% for block in section.blocks %} {% capture blockId %}{{
+                      block.id }}{% endcapture %} {% if block.type ==
+                      'parent-item' %}
+                      <li>
+                        <a href="{{ block.settings.menu_link }}">
+                          {% if settings.enable_lang_switcher %}
+                          <span class="hide" id="header1_{{blockId}}_menu_name"
+                            >{{ block.settings.trans_menu_name | raw }}</span
+                          >
+                          {% endif %} {% if block.settings.show_label %}
+                          <div
+                            class="lable-nav {{ block.settings.label_text }}"
+                          >
+                            <span
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{blockId}}_label_text"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ block.settings.label_text }}
+                            </span>
+                            {% if settings.enable_lang_switcher %}
+                            <span
+                              class="hide"
+                              id="header1_{{blockId}}_label_text"
+                              >{{ block.settings.trans_label_text | raw }}</span
+                            >
+                            {% endif %}
+                          </div>
+                          {% endif %}
+                        </a>
+                      </li>
+                      {% elsif block.type == 'parent-child-item' %}
+
+                      <li>
+                        <a href="{{ block.settings.menu_link }}">
+                          <span
+                            {%
+                            if
+                            settings.enable_lang_switcher
+                            %}class="lang_trans"
+                            data-trans="#header1_{{blockId}}_menu_name"
+                            {%
+                            endif
+                            %}
+                          >
+                            {{ block.settings.menu_name }}
+                          </span>
+                          {% if settings.enable_lang_switcher %}
+                          <span class="hide" id="header1_{{blockId}}_menu_name"
+                            >{{ block.settings.trans_menu_name | raw }}</span
+                          >
+                          {% endif %} {% if block.settings.show_label %}
+                          <div
+                            class="lable-nav {{ block.settings.label_text }}"
+                          >
+                            <span
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{blockId}}_label_text"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ block.settings.label_text }}
+                            </span>
+                            {% if settings.enable_lang_switcher %}
+                            <span
+                              class="hide"
+                              id="header1_{{blockId}}_label_text"
+                              >{{ block.settings.trans_label_text | raw }}</span
+                            >
+                            {% endif %}
+                          </div>
+                          {% endif %}
+                        </a>
+                        <ul>
+                          {% assign child_linklist =
+                          block.settings.submenu_linklist %} {% for sublink in
+                          linklists[child_linklist].links %} {% assign
+                          child_list_handle = sublink.title | handleize %} {% if
+                          linklists[child_list_handle].links != blank %}
+                          <li>
+                            {% assign data_title = sublink.title | split: '|' |
+                            first %} {% assign data_json = sublink.title |
+                            split: '|' | last %}
+                            <a
+                              href="{{ sublink.url }}"
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{blockId}}_{{sublink.handle}}"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ data_title }}
+                            </a>
+                            {% if settings.enable_lang_switcher %}
+                            <span
+                              class="hide"
+                              id="header1_{{blockId}}_{{sublink.handle}}"
+                              >{{ data_json | raw }}</span
+                            >
+                            {% endif %}
+                            <ul>
+                              {% for child_sublink in
+                              linklists[child_list_handle].links %}
+                              <li>
+                                {% assign data_title = child_sublink.title |
+                                split: '|' | first %} {% assign data_json =
+                                child_sublink.title | split: '|' | last %}
+                                <a
+                                  href="{{ child_sublink.url }}"
+                                  {%
+                                  if
+                                  settings.enable_lang_switcher
+                                  %}class="lang_trans"
+                                  data-trans="#header1_{{blockId}}_{{child_sublink.handle}}"
+                                  {%
+                                  endif
+                                  %}
+                                >
+                                  {{ data_title }}
+                                </a>
+                                {% if settings.enable_lang_switcher %}
+                                <span
+                                  class="hide"
+                                  id="header1_{{blockId}}_{{child_sublink.handle}}"
+                                  >{{ data_json | raw }}</span
+                                >
+                                {% endif %}
+                              </li>
+                              {% endfor %}
+                            </ul>
+                          </li>
+                          {% else %}
+                          <li>
+                            {% assign data_title = sublink.title | split: '|' |
+                            first %} {% assign data_json = sublink.title |
+                            split: '|' | last %}
+                            <a
+                              href="{{ sublink.url }}"
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{blockId}}_{{sublink.handle}}"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ data_title }}
+                            </a>
+                            {% if settings.enable_lang_switcher %}
+                            <span
+                              class="hide"
+                              id="header1_{{blockId}}_{{sublink.handle}}"
+                              >{{ data_json | raw }}</span
+                            >
+                            {% endif %}
+                          </li>
+                          {% endif %} {% endfor %}
+                        </ul>
+                      </li>
+
+                      {% elsif block.type == 'custom-megamenu' %}
+
+                      <li>
+                        <a href="{{ block.settings.menu_link }}">
+                          <span
+                            {%
+                            if
+                            settings.enable_lang_switcher
+                            %}class="lang_trans"
+                            data-trans="#header1_{{blockId}}_menu_name"
+                            {%
+                            endif
+                            %}
+                          >
+                            {{ block.settings.menu_name }}
+                          </span>
+                          {% if settings.enable_lang_switcher %}
+                          <span class="hide" id="header1_{{blockId}}_menu_name"
+                            >{{ block.settings.trans_menu_name | raw }}</span
+                          >
+                          {% endif %} {% if block.settings.show_label %}
+                          <div
+                            class="lable-nav {{ block.settings.label_text }}"
+                          >
+                            <span
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{blockId}}_label_text"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ block.settings.label_text }}
+                            </span>
+                            {% if settings.enable_lang_switcher %}
+                            <span
+                              class="hide"
+                              id="header1_{{blockId}}_label_text"
+                              >{{ block.settings.trans_label_text | raw }}</span
+                            >
+                            {% endif %}
+                          </div>
+                          {% endif %}
+                        </a>
+                        {{ block.settings.custom_menu_html }}
+                      </li>
+
+                      {% elsif block.type == 'megamenu' %}
+
+                      <li class="mega hover-cls">
+                        <a href="{{ block.settings.menu_link }}">
+                          <span
+                            {%
+                            if
+                            settings.enable_lang_switcher
+                            %}class="lang_trans"
+                            data-trans="#header1_{{blockId}}_menu_name"
+                            {%
+                            endif
+                            %}
+                          >
+                            {{ block.settings.menu_name }}
+                          </span>
+                          {% if settings.enable_lang_switcher %}
+                          <span class="hide" id="header1_{{blockId}}_menu_name"
+                            >{{ block.settings.trans_menu_name | raw }}</span
+                          >
+                          {% endif %} {% if block.settings.show_label %}
+                          <span
+                            class="lable-nav {{ block.settings.label_text }}"
+                          >
+                            <span
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{blockId}}_label_text"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ block.settings.label_text }}
+                            </span>
+                            {% if settings.enable_lang_switcher %}
+                            <span
+                              class="hide"
+                              id="header1_{{blockId}}_label_text"
+                              >{{ block.settings.trans_label_text | raw }}</span
+                            >
+                            {% endif %}
+                          </span>
+                          {% endif %}
+                        </a>
+                        <ul class="mega-menu full-mega-menu">
+                          <li>
+                            <div class="container">
+                              <div class="row">
+                                {% for i in (1..5) %} {% assign for_index =
+                                forloop.index | times: 1 -%} {% capture
+                                linklist_grid %}linklist_{{ i }}{% endcapture %}
+                                {% capture linklist_title %}linklist_title_{{ i
+                                }}{% endcapture %} {% capture
+                                trans_linklist_title %}trans_linklist_title_{{ i
+                                }}{% endcapture %} {% assign megamenu_grid =
+                                block.settings[linklist_grid] -%}
+
+                                <div class="col mega-box">
+                                  <div class="link-section">
+                                    <div class="menu-title">
+                                      <h5
+                                        {%
+                                        if
+                                        settings.enable_lang_switcher
+                                        %}class="lang_trans"
+                                        data-trans="#header1_{{blockId}}_linklist_title"
+                                        {%
+                                        endif
+                                        %}
+                                      >
+                                        {{ block.settings[linklist_title] }}
+                                      </h5>
+                                      {% if settings.enable_lang_switcher %}
+                                      <span
+                                        class="hide"
+                                        id="header1_{{blockId}}_linklist_title"
+                                        >{{ block.settings[trans_linklist_title]
+                                        | raw }}</span
+                                      >
+                                      {% endif %}
+                                    </div>
+                                    <div class="menu-content">
+                                      <ul>
+                                        {% for megamenu_link in
+                                        linklists[megamenu_grid].links %}
+                                        <li>
+                                          {% assign data_title =
+                                          megamenu_link.title | split: '|' |
+                                          first %} {% assign data_json =
+                                          megamenu_link.title | split: '|' |
+                                          last %}
+                                          <a
+                                            href="{{ megamenu_link.url }}"
+                                            {%
+                                            if
+                                            settings.enable_lang_switcher
+                                            %}class="lang_trans"
+                                            data-trans="#header1_{{blockId}}_{{megamenu_link.handle}}"
+                                            {%
+                                            endif
+                                            %}
+                                          >
+                                            {{ data_title }}
+                                          </a>
+                                          {% if settings.enable_lang_switcher %}
+                                          <span
+                                            class="hide"
+                                            id="header1_{{blockId}}_{{megamenu_link.handle}}"
+                                            >{{ data_json | raw }}</span
+                                          >
+                                          {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {% endfor %}
+                              </div>
+                            </div>
+                            {% if block.settings.img_1 != blank or
+                            block.settings.img_2 != blank %}
+                            <div class="row banner-padding">
+                              {% for i in (1..2) %} {% assign for_index =
+                              forloop.index | times: 1 -%} {% capture menu_img
+                              %}img_{{ i }}{% endcapture %} {% capture
+                              menu_img_url %}img_url_{{ i }}{% endcapture %}
+                              <div class="col-xl-6"></div>
+                              {% endfor %}
+                            </div>
+                            {% endif %}
+                          </li>
+                        </ul>
+                      </li>
+
+                      {% elsif block.type == 'select-nav-menu' %} {% assign
+                      sidebar_menu_id = block.settings.mainmenu -%} {% for
+                      mainlink in linklists[sidebar_menu_id].links %} {% assign
+                      child_list_handle = mainlink.title | handleize %} {% if
+                      linklists[child_list_handle].links != blank %}
+
+                      <li>
+                        {% assign data_title = mainlink.title | split: '|' |
+                        first %} {% assign data_json = mainlink.title | split:
+                        '|' | last %}
+                        <a href="{{ block.settings.menu_link }}">
+                          <span
+                            {%
+                            if
+                            settings.enable_lang_switcher
+                            %}class="lang_trans"
+                            data-trans="#header1_{{blockId}}_menu_name"
+                            {%
+                            endif
+                            %}
+                          >
+                            {{ data_title }}
+                          </span>
+                          {% if settings.enable_lang_switcher %}
+                          <span class="hide" id="header1_{{blockId}}_menu_name"
+                            >{{ data_json | raw }}</span
+                          >
+                          {% endif %}
+                        </a>
+                        <ul>
+                          {% for submenu in linklists[child_list_handle].links
+                          %} {% assign child_child_list_handle = submenu.title |
+                          handleize %} {% if
+                          linklists[child_child_list_handle].links != blank %}
+                          <li>
+                            {% assign data_title = submenu.title | split: '|' |
+                            first %} {% assign data_json = submenu.title |
+                            split: '|' | last %}
+                            <a
+                              href="{{ submenu.url }}"
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{submenu.handle}}"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ data_title }}
+                            </a>
+                            {% if settings.enable_lang_switcher %}
+                            <span class="hide" id="header1_{{submenu.handle}}"
+                              >{{ data_json | raw }}</span
+                            >
+                            {% endif %}
+
+                            <ul>
+                              {% for submenu1 in
+                              linklists[child_child_list_handle].links %}
+                              <li>
+                                {% assign data_title = submenu1.title | split:
+                                '|' | first %} {% assign data_json =
+                                submenu1.title | split: '|' | last %}
+                                <a
+                                  href="{{ submenu1.url }}"
+                                  {%
+                                  if
+                                  settings.enable_lang_switcher
+                                  %}class="lang_trans"
+                                  data-trans="#header1_{{submenu1.handle}}"
+                                  {%
+                                  endif
+                                  %}
+                                >
+                                  {{ data_title }}
+                                </a>
+                                {% if settings.enable_lang_switcher %}
+                                <span
+                                  class="hide"
+                                  id="header1_{{submenu1.handle}}"
+                                  >{{ data_json | raw }}</span
+                                >
+                                {% endif %}
+                              </li>
+                              {% endfor %}
+                            </ul>
+                          </li>
+                          {% else %}
+                          <li>
+                            {% assign data_title = submenu.title | split: '|' |
+                            first %} {% assign data_json = submenu.title |
+                            split: '|' | last %}
+                            <a
+                              href="{{ submenu.url }}"
+                              {%
+                              if
+                              settings.enable_lang_switcher
+                              %}class="lang_trans"
+                              data-trans="#header1_{{submenu.handle}}"
+                              {%
+                              endif
+                              %}
+                            >
+                              {{ data_title }}
+                            </a>
+                            {% if settings.enable_lang_switcher %}
+                            <span class="hide" id="header1_{{submenu.handle}}"
+                              >{{ data_json | raw }}</span
+                            >
+                            {% endif %}
+                          </li>
+                          {% endif %} {% endfor %}
+                        </ul>
+                      </li>
+
+                      {% else %}
+
+                      <li>
+                        {% assign data_title = mainlink.title | split: '|' |
+                        first %} {% assign data_json = mainlink.title | split:
+                        '|' | last %}
+                        <a href="{{ mainlink.url }}">
+                          <span
+                            {%
+                            if
+                            settings.enable_lang_switcher
+                            %}class="lang_trans"
+                            data-trans="#header1_{{blockId}}_menu_name"
+                            {%
+                            endif
+                            %}
+                          >
+                            {{ data_title }}
+                          </span>
+                          {% if settings.enable_lang_switcher %}
+                          <span class="hide" id="header1_{{blockId}}_menu_name"
+                            >{{ data_json | raw }}</span
+                          >
+                          {% endif %}
+                        </a>
+                      </li>
+
+                      {% endif %} {% endfor %} {% endif %} {% endfor %}
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <div class="menu-right pull-right">
+                <div>
+                  <div class="icon-nav">
+                    <ul
+                      style="
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                      "
+                    >
+                      {% if section.settings.enable_search %}
+
+                      <li class="onhover-div mobile-search">
+                        {% endif %} {% if settings.enable_lang_switcher or
+                        section.settings.enable_currency %}
+                      </li>
+
+                      <li class="onhover-div mobile-setting">
+                        <div class="show-div setting">
+                          {% include 'language-picker' %} {% endif %}
+                        </div>
+                      </li>
+                      {% endif %} {% if settings.show_catelogue != true %}
+                      <li class="onhover-div mobile-cart">
+                        <div>
+                          {% if settings.cart_redirect == 'redirect_to_cart'%}
+                          <a href="/cart"> </a>
+                          {% endif %}
+
+                          <span class="cart_qty_cls">
+                            {{ cart.item_count }}
+                          </span>
+                        </div>
+
+                        {% if settings.cart_redirect == 'ajax_cart' and
+                        settings.add_to_cart_style == 'fly_cart' %}
+                        <ul
+                          class="show-div shopping-cart"
+                          id="cart_container_id"
+                        ></ul>
+                        {% endif %}
+                      </li>
+                      {% endif %}
+
+                      <li>
+                        <div class="text-right">
+                          <ul class="header-dropdown">
+                            {% if settings.show_catelogue != true %}
+                            <li class="onhover-dropdown mobile-account">
+                              <!-- <i  class="fa fa-user" aria-hidden="true"></i> -->
+                              <img
+                                src="https://cdn.shopify.com/s/files/1/0580/5696/6297/files/ACC.png?v=1693640671"
+                                alt="User"
+                                width="40px"
+                                height="40px"
+                              />
+                              <!-- <span {% if settings.enable_lang_switcher %}data-trans-key="customer.account.title"{%endif%}>{% if customer %} {{customer.first_name}} {% else %}  {{ 'customer.account.title' | t }} {%endif%}</span> -->
+                            </li>
+                            {% endif %}
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% if section.settings.header_width == 'standard-width' %}
+      </div>
+
+      {% else %}
+    </div>
+
+    {% endif %}
+    <div id="search-overlay" class="search-overlay search-overlay-box">
+      <span class="closebtn" onclick="closeSearch()" title="Close Overlay"
+        >×</span
+      >
+      <div class="overlay-content">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-12">
+              <form action="/search" method="get" role="search">
+                <div class="form-group">
+                  <input
+                    type="search"
+                    class="form-control"
+                    name="q"
+                    placeholder="{{ 'general.search.placeholder' | t: terms: search.terms }}"
+                    style="width: 100%"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .search-overlay {
+        width: 80%; /* Adjusting to 80% */
+        height: auto;
+        display: block;
+        visibility: visible;
+        position: fixed; /* Make it fixed position */
+        top: 50%; /* Center it vertically */
+        left: 50%; /* Center it horizontally */
+        transform: translate(-50%, -50%); /* Fine-tuning for exact centering */
+        z-index: 9999; /* Ensure it's above other elements */
+      }
+
+      .search-overlay-box {
+        max-width: 100%; /* No max-width, let it stretch according to the parent */
+        margin: 0 auto;
+      }
+
+      #search-overlay {
+        display: block !important;
+        visibility: visible !important;
+      }
+    </style>
+  </header>
+  <!-- header end -->
+  {% schema %} not coming out well use that code to put that search bar in the
+  middle just below the nav links
+</div>

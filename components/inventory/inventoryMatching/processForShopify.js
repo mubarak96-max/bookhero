@@ -12,14 +12,22 @@ const processForShopify = (array) => {
       Plot,
       PurchasePrice,
       Tags,
+      Subject,
+      Genre
     }) => {
+      const cleanedGenres = Genre?.replace(/[\|\/]/g, ",").trim();
       const cleanedTags = Tags?.replace(/[\|\/]/g, ",").trim();
+      const cleanedSubjects = Subject?.replace(/[\|\/]/g, ",").trim();
+
+      const allTags = [cleanedTags, cleanedGenres, cleanedSubjects]
+        .filter(Boolean) // filter out any falsy values like undefined or empty strings
+        .join(", ");
 
       return {
         Title: Title || "",
         Author: Author || "",
-        "Variant Inventory Qty": scannedQuantity || "",
-        "Variant Inventory Policy": "Deny",
+        "Inventory Quantity": scannedQuantity || "",
+        "Inventory Policy": "Deny",
         "Body (HTML)": `${Plot || ""} \n Dimensions:${
           Dimensions || ""
         }  \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
@@ -29,11 +37,11 @@ const processForShopify = (array) => {
         Published: "TRUE",
         "Variant Barcode": ISBN || "",
         "Variant Sku": SKU || "",
-        "Varient Inventory Tracker": "Shopify",
+        "Inventory Tracker": "shopify",
         "Variant Fullfilment Service": "Manual",
         Format: Format || "",
         Pages: parseInt(Pages) || "",
-        Tags: cleanedTags || "",
+        Tags: allTags || "",
         "Variant Price": parseInt(PurchasePrice) || "",
         "Variant Requires": "TRUE",
         "Image Src": "",
@@ -44,7 +52,7 @@ const processForShopify = (array) => {
         Status: "Active",
         "Standard Product Type": "Media > Books > Print Books",
         "Custom Product Type": "Reading Books",
-        Dimensions: Dimensions || "",
+        Dimensions: Dimensions || ""
       };
     }
   );

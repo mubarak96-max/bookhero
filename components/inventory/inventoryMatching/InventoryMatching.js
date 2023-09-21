@@ -10,9 +10,11 @@ import { setNonMatchingBooks } from "../../../utils/redux/slices/inventorySlice"
 import assignSpaces from "./assignSpaces";
 import processForShopify from "./processForShopify";
 import InventorySpacing from "../InventorySpacing";
-import getCurrentDateTime from "./getTime";
+import getCurrentDateTime, { getFormattedDate } from "./getTime";
 import convertFileToJson from "../../Functions/convertToJson";
 import Swal from "sweetalert2";
+
+const timestamp = getFormattedDate();
 
 const buttonStyle = {
   margin: "8px" // Adjust margin as needed
@@ -83,12 +85,26 @@ const InventoryMatching = (props) => {
             inventory?.SKU?.slice(skuStart) === scanned?.ISBN
           );
         });
+        // console.log("matching item", matchingItem);
+        console.log("scanned genre", scanned?.Genre);
+
+        console.log(
+          "scanned tag",
+
+          scanned?.Tags
+        );
+
+        console.log(
+          "scanned subject",
+
+          scanned?.Subject
+        );
 
         if (matchingItem) {
           matchingItems.push({
             Title: scanned?.Title,
             Author: scanned?.Author,
-            ["Scanned Quantity"]: scanned?.Quantity,
+            ["Scanned Quantity"]: Number(scanned?.Quantity),
             ["Inventory Quantity"]: Number(matchingItem["Oasis Center"]),
             SKU: matchingItem?.SKU,
             ["To be placed"]: scanned?.Quantity,
@@ -101,11 +117,13 @@ const InventoryMatching = (props) => {
             scannedQuantity: scanned?.Quantity || "",
             ISBN: scanned?.ISBN || "",
             Format: scanned?.Format,
-            Tags: scanned?.Genre,
             Dimensions: scanned?.Dimensions,
             Plot: scanned?.Plot,
             PurchasePrice: scanned["Purchase Price"],
-            Pages: scanned?.Pages
+            Pages: scanned?.Pages,
+            Genre: scanned?.Genre,
+            Subject: scanned?.Subject,
+            Tags: scanned?.Tags
           });
         }
       });
@@ -444,8 +462,6 @@ const InventoryMatching = (props) => {
         >
           {processedDataURLs?.length > 0 &&
             processedDataURLs?.map((url, index) => {
-              const timestamp = getCurrentDateTime();
-              console.log("time", timestamp);
               return (
                 <Button
                   key={index}
@@ -455,7 +471,7 @@ const InventoryMatching = (props) => {
                   color="secondary"
                   startIcon={<CloudDownloadIcon />}
                   href={url}
-                  download={`file${index + 1}.csv`}
+                  download={`ShopifyFile${timestamp}.csv`}
                   style={buttonStyle}
                 >
                   Download data for shopify ({index + 1})

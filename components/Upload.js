@@ -1,16 +1,16 @@
-import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import axios from 'axios';
-import { TextField } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-import SaveIcon from '@mui/icons-material/Save';
+import React, { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+import { TextField } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import SaveIcon from "@mui/icons-material/Save";
 
 const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [uploadError, setUploadError] = useState(null);
-  const [tittle, setTittle] = useState('');
-  const [image, setImage] = useState('');
-  const [author, setAuthor] = useState('');
-  const [Isbn, setISBN] = useState('');
+  const [tittle, setTittle] = useState("");
+  const [image, setImage] = useState("");
+  const [author, setAuthor] = useState("");
+  const [Isbn, setISBN] = useState("");
   const [uploading, setUploading] = useState(false);
 
   const onDrop = useCallback(
@@ -29,22 +29,22 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
     setUploadError(null);
 
     try {
-      const { url } = await fetch('/api/authaws').then((res) => res.json());
+      const { url } = await fetch("/api/authaws").then((res) => res.json());
       console.log(url, image);
       const response = await fetch(url, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'image/jpg'
+          "Content-Type": "image/jpg"
         },
         body: image
       });
 
-      console.log('response', response);
+      console.log("response", response);
 
       if (response.status === 200) {
-        const imageUrl = url.split('?')[0];
+        const imageUrl = url.split("?")[0];
 
-        console.log(imageUrl, 'image');
+        console.log(imageUrl, "image");
 
         const bookInformation = {
           imageLink: imageUrl,
@@ -53,13 +53,13 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
           bookAuthor: author
         };
 
-        setAuthor('');
-        setISBN('');
-        setTittle('');
-        setImage('');
+        setAuthor("");
+        setISBN("");
+        setTittle("");
+        setImage("");
 
         const sendToDatabase = await axios.post(
-          '/api/bookdata/addbook',
+          "/api/bookdata/addbook",
           bookInformation
         );
 
@@ -67,7 +67,7 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
 
         getUploadedBookInfo(sendToDatabase.data?.bookDatacreated);
       } else {
-        throw new Error('Failed to upload image');
+        throw new Error("Failed to upload image");
       }
     } catch (error) {
       console.log(error.message);
@@ -80,43 +80,24 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
   return (
     <>
       <TextField
-        id='outlined-basic'
-        label='Tittle'
-        variant='outlined'
+        id="outlined-basic"
+        label="Tittle"
+        variant="outlined"
         value={tittle}
         onChange={(e) => {
           setTittle(e.target.value);
         }}
       />
       <br /> <br />
-      <TextField
-        id='outlined-basic'
-        label='Author'
-        variant='outlined'
-        value={author}
-        onChange={(e) => {
-          setAuthor(e.target.value);
-        }}
-      />
-      <br /> <br />
-      <TextField
-        id='outlined-basic'
-        label='ISBN'
-        variant='outlined'
-        value={Isbn}
-        onChange={(e) => {
-          setISBN(e.target.value);
-        }}
-      />
       <br />
       <br />
       <div
         {...getRootProps()}
         style={{
-          border: '2px dotted blue',
-          height: '100px',
-          maxWidth: '250px',
-          textAlign: 'center'
+          border: "2px dotted blue",
+          height: "100px",
+          maxWidth: "250px",
+          textAlign: "center"
         }}
       >
         <input {...getInputProps()} />
@@ -128,17 +109,17 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
       </div>
       <br />
       <br />
-      {tittle && author && Isbn && image && (
+      {tittle && image && (
         <>
           <LoadingButton
-            color='primary'
+            color="primary"
             onClick={handleUpload}
             loading={uploading}
-            loadingPosition='start'
+            loadingPosition="start"
             startIcon={<SaveIcon />}
-            variant='contained'
+            variant="contained"
           >
-            {uploading ? 'Uploading....' : 'Confirm Upload'}
+            {uploading ? "Uploading...." : "Confirm Upload"}
           </LoadingButton>
         </>
       )}

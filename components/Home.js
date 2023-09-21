@@ -85,12 +85,6 @@ export default function Home() {
               <p>
                 Tittle: <strong>{tittle} </strong>
               </p>
-              <p>
-                Author: <strong>{author} </strong>
-              </p>
-              <p>
-                ISBN: <strong>{ISBN} </strong>
-              </p>
 
               <br />
 

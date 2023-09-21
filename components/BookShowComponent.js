@@ -17,7 +17,7 @@ const BookShowComponent = (props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        textAlign: "center",
+        textAlign: "center"
       }}
     >
       <div className={styles.card}>
@@ -28,12 +28,7 @@ const BookShowComponent = (props) => {
           <p>
             Tittle: <strong>{bookTittle} </strong>
           </p>
-          <p>
-            Author: <strong>{bookAuthor}</strong>
-          </p>
-          <p>
-            ISBN: <strong>{bookISBN} </strong>
-          </p>
+
           <br />
 
           <Button

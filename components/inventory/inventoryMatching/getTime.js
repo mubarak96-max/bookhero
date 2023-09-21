@@ -1,14 +1,16 @@
-function getCurrentDateTime() {
-  const now = new Date();
+export function getFormattedDate() {
+  let currentDate = new Date();
 
-  const date = now.getDate().toString().padStart(2, "0");
-  const month = (now.getMonth() + 1).toString().padStart(2, "0"); // Note: Months are 0-based
-  const year = now.getFullYear();
+  let day = currentDate.getDate();
+  let month = currentDate.getMonth() + 1; // Months are zero-based.
+  let year = currentDate.getFullYear();
 
-  const hours = now.getHours().toString().padStart(2, "0");
-  const minutes = now.getMinutes().toString().padStart(2, "0");
+  let hours = currentDate.getHours();
+  let minutes = currentDate.getMinutes();
+  let ampm = hours >= 12 ? "pm" : "am";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? "0" + minutes : minutes;
 
-  return `${date}-${month}-${year}, ${hours}:${minutes}`;
+  return `${day}-${month}-${year}-${hours}:${minutes}${ampm}`;
 }
-
-export default getCurrentDateTime;
