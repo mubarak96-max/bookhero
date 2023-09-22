@@ -26,8 +26,8 @@ const processForShopify = (array) => {
       return {
         Title: Title || "",
         Author: Author || "",
-        "Inventory Quantity": scannedQuantity || "",
-        "Inventory Policy": "Deny",
+        "Variant Inventory Qty": scannedQuantity || "",
+        "Variant Inventory Policy": "Deny",
         "Body (HTML)": `${Plot || ""} \n Dimensions:${
           Dimensions || ""
         }  \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
@@ -37,7 +37,7 @@ const processForShopify = (array) => {
         Published: "TRUE",
         "Variant Barcode": ISBN || "",
         "Variant Sku": SKU || "",
-        "Inventory Tracker": "shopify",
+        "Variant Inventory Tracker": "shopify",
         "Variant Fullfilment Service": "Manual",
         Format: Format || "",
         Pages: parseInt(Pages) || "",
