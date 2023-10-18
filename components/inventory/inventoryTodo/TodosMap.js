@@ -12,13 +12,12 @@ export default function TodosMap({
   chek,
   setBolean,
   check,
-  add,
+  add
 }) {
   return (
     <Grid
       container
       spacing={2}
-      container
       direction="column"
       justifyContent="space-around"
       alignItems="center"
@@ -31,7 +30,7 @@ export default function TodosMap({
             sx={{
               p: 2,
               bgcolor: "background.default",
-              display: "table-row-group",
+              display: "table-row-group"
             }}
           >
             {list.map((item) => (

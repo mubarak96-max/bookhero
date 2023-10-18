@@ -35,7 +35,7 @@ const processForShopify = (array) => {
         } \n Pages ${Pages || ""}`,
         Vendor: "bookhero.ae",
         Published: "TRUE",
-        "Variant Barcode": ISBN || "",
+        "Variant Barcode": `'${String(ISBN)}` || "",
         "Variant Sku": SKU || "",
         "Variant Inventory Tracker": "shopify",
         "Variant Fullfilment Service": "Manual",
