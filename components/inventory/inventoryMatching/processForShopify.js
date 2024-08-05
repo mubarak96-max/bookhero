@@ -52,7 +52,10 @@ const processForShopify = (array) => {
         Status: "Active",
         "Standard Product Type": "Media > Books > Print Books",
         "Custom Product Type": "Reading Books",
-        Dimensions: Dimensions || ""
+        Dimensions: Dimensions || "",
+        "Google Shopping / Google Product Category": "Books"
+        // "Google Shopping / AdWords Grouping": "",
+        // "Google Shopping / AdWords Labels": ""
       };
     }
   );
