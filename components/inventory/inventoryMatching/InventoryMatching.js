@@ -158,8 +158,8 @@ const InventoryMatching = (props) => {
 
       const result = [];
 
-      for (let i = 0; i < processedDataForShopify.length; i += 50) {
-        const arr = processedDataForShopify?.slice(i, i + 50);
+      for (let i = 0; i < processedDataForShopify.length; i += 500) {
+        const arr = processedDataForShopify?.slice(i, i + 500);
 
         const processedCSV = Papa.unparse(arr);
 
