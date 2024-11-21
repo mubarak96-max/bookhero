@@ -80,7 +80,8 @@ const InventoryMatching = (props) => {
         const matchingItem = inventoryData.find((inventory) => {
           const skuStart = inventory?.SKU?.indexOf("978");
           return (
-            inventory?.Title?.toLowerCase() === scanned?.Title?.toLowerCase()
+            inventory?.Title?.toLowerCase() === scanned?.Title?.toLowerCase() &&
+            inventory?.ISBN === skuStart
           );
         });
         // console.log("matching item", matchingItem);

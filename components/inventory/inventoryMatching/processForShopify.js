@@ -26,6 +26,7 @@ const processForShopify = (array) => {
       return {
         Title: Title || "",
         Author: Author || "",
+        Tags: allTags || "",
         "Variant Inventory Qty": scannedQuantity || "",
         "Variant Inventory Policy": "Deny",
         "Body (HTML)": `${Plot || ""} \n Dimensions:${
@@ -41,7 +42,6 @@ const processForShopify = (array) => {
         "Variant Fullfilment Service": "Manual",
         Format: Format || "",
         Pages: parseInt(Pages) || "",
-        Tags: allTags || "",
         "Variant Price": parseInt(PurchasePrice) || "",
         "Variant Requires": "TRUE",
         "Image Src": "",
