@@ -79,9 +79,9 @@ const InventoryMatching = (props) => {
       scannedArrayWithoutDuplicates?.forEach((scanned) => {
         const matchingItem = inventoryData.find((inventory) => {
           const skuStart = inventory?.SKU?.indexOf("978");
-          return (
-            inventory?.Title?.toLowerCase() === scanned?.Title?.toLowerCase()
-          );
+          inventory?.Title?.toLowerCase() === scanned?.Title?.toLowerCase() &&
+            skuStart !== -1 &&
+            inventory?.SKU?.slice(skuStart) === scanned?.ISBN;
         });
         // console.log("matching item", matchingItem);
         console.log("scanned genre", scanned?.Genre);
@@ -240,6 +240,11 @@ const InventoryMatching = (props) => {
       </h2>
       <div>
         <br />
+
+        <Alert severity="warning">
+          Please update the plugins before Jan, 20th to mantain browser
+          compatibility
+        </Alert>
 
         <div
           style={{
