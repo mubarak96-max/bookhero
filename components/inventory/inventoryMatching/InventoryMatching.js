@@ -156,19 +156,26 @@ const InventoryMatching = (props) => {
 
       const result = [];
 
-      for (let i = 0; i < processedDataForShopify.length; i += 500) {
-        const arr = processedDataForShopify?.slice(i, i + 500);
+      // for (let i = 0; i < processedDataForShopify.length; i += 500) {
+      //   const arr = processedDataForShopify?.slice(i, i + 500);
 
-        const processedCSV = Papa.unparse(arr);
+      //   const processedCSV = Papa.unparse(arr);
 
-        const url = URL.createObjectURL(new Blob([processedCSV]));
+      //   const url = URL.createObjectURL(new Blob([processedCSV]));
 
-        result.push(url);
-      }
+      //   result.push(url);
+      // }
 
-      setProcessedDataURLs(result);
+      // setProcessedDataURLs(result);
 
-      setIsDownloaded(true);
+      // setIsDownloaded(true);
+
+      Swal.fire({
+        icon: "error",
+        title: "Update packages",
+        text: `Please update all required packages and try again`,
+        footer: "<span>Update packages</span>"
+      });
 
       setUploadedMessage("Files processed and ready for download.");
 
