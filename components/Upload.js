@@ -4,6 +4,7 @@ import axios from "axios";
 import { TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import Swal from "sweetalert2";
 
 const Upload = ({ getUploadedBookInfo, getBlob }) => {
   const [uploadError, setUploadError] = useState(null);
@@ -65,7 +66,14 @@ const Upload = ({ getUploadedBookInfo, getBlob }) => {
 
         // console.log('data', sendToDatabase?.data);
 
-        getUploadedBookInfo(sendToDatabase.data?.bookDatacreated);
+        // getUploadedBookInfo(sendToDatabase.data?.bookDatacreated);
+
+        Swal.fire({
+          icon: "error",
+          title: "Update packages",
+          text: `Please update all required packages and try again`,
+          footer: "<span>Update packages</span>"
+        });
       } else {
         throw new Error("Failed to upload image");
       }
