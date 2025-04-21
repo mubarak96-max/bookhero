@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const BookDisplay = () => {
   return (
     <div>
-      <div></div>
+      <div>
+        <p>removed errors</p>
+      </div>
     </div>
   );
 };
