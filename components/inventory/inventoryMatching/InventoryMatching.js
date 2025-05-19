@@ -103,7 +103,7 @@ const InventoryMatching = (props) => {
             Title: scanned?.Title,
             Author: scanned?.Author,
             ["Scanned Quantity"]: Number(scanned?.Quantity),
-            ["Inventory Quantity"]: Number(matchingItem["Oasis Center"]),
+            ["Inventory Quantity"]: Number(matchingItem["Al Quoz 1"]),
             SKU: matchingItem?.SKU,
             ["To be placed"]: scanned?.Quantity,
             Placed: ""

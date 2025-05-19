@@ -34,7 +34,7 @@ const processForShopify = (array) => {
         }  \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
           Format || ""
         } \n Pages ${Pages || ""}`,
-        Vendor: "bookhero.ae",
+        Vendor: "Bookspoint",
         Published: "TRUE",
         "Variant Barcode": `'${String(ISBN)}` || "",
         "Variant Sku": SKU || "",
@@ -46,14 +46,14 @@ const processForShopify = (array) => {
         "Variant Requires": "TRUE",
         "Image Src": "",
         "Image Pos": 1,
-        "Image Alt Text": `Links to ${Title || ""} by ${Author || ""}`,
-        "SEO Title": `${Title || ""} | ${Author || ""}`,
-        "SEO Description": "",
+        "Image Alt Text": `${Title || ""} by ${Author || ""}`,
+        "SEO Title": `${Title || ""} by ${Author || ""}`,
+        "SEO Description": Plot,
         Status: "Active",
         "Standard Product Type": "Media > Books > Print Books",
         "Custom Product Type": "Reading Books",
         Dimensions: Dimensions || "",
-        "Google Shopping / Google Product Category": "Books"
+        "Google Shopping / Google Product Category": 1604
         // "Google Shopping / AdWords Grouping": "",
         // "Google Shopping / AdWords Labels": ""
       };
