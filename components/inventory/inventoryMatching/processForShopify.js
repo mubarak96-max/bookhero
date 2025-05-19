@@ -30,7 +30,7 @@ const processForShopify = (array) => {
         "Variant Inventory Qty": scannedQuantity || "",
         "Variant Inventory Policy": "Deny",
         "Body (HTML)": `${Plot || ""} \n 
-        }  \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
+          \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
           Format || ""
         } \n Pages ${Pages || ""}`,
         Vendor: "Bookspoint",
