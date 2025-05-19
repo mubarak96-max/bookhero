@@ -29,8 +29,7 @@ const processForShopify = (array) => {
         Tags: allTags || "",
         "Variant Inventory Qty": scannedQuantity || "",
         "Variant Inventory Policy": "Deny",
-        "Body (HTML)": `${Plot || ""} \n Dimensions:${
-          Dimensions || ""
+        "Body (HTML)": `${Plot || ""} \n 
         }  \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
           Format || ""
         } \n Pages ${Pages || ""}`,
@@ -41,7 +40,7 @@ const processForShopify = (array) => {
         "Variant Sku": SKU || "",
         "Variant Inventory Tracker": "shopify",
         "Variant Fullfilment Service": "Manual",
-        Format: Format || "",
+        ...(Format ? { Format: Format } : {}),
         Pages: parseInt(Pages) || "",
         "Variant Price": parseInt(PurchasePrice) || "",
         "Variant Requires": "TRUE",
