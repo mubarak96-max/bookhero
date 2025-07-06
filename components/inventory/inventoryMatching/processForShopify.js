@@ -33,10 +33,12 @@ const processForShopify = (array) => {
           \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
           Format || ""
         } \n Pages ${Pages || ""}`,
+        "Image Src": "",
+        "metafield: custom.ratings":"",
         Vendor: "Bookspoint",
         Published: "TRUE",
         "Variant Barcode": `'${String(ISBN)}` || "",
-        "Image Src": "",
+        
         "Variant Sku": SKU || "",
         "Variant Inventory Tracker": "shopify",
         "Variant Fullfilment Service": "Manual",
@@ -52,7 +54,7 @@ const processForShopify = (array) => {
         "Standard Product Type": "Media > Books > Print Books",
         "Custom Product Type": "Reading Books",
         Dimensions: Dimensions || "",
-        "metafield: custom.rating":"",
+      
         "metafield: custom.author":Author || "",
         "Google Shopping / Google Product Category": 1604
         // "Google Shopping / AdWords Grouping": "",
