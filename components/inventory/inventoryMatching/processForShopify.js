@@ -52,6 +52,8 @@ const processForShopify = (array) => {
         "Standard Product Type": "Media > Books > Print Books",
         "Custom Product Type": "Reading Books",
         Dimensions: Dimensions || "",
+        "metafield: custom.rating":"",
+        "metafield: custom.author":Author || "",
         "Google Shopping / Google Product Category": 1604
         // "Google Shopping / AdWords Grouping": "",
         // "Google Shopping / AdWords Labels": ""
