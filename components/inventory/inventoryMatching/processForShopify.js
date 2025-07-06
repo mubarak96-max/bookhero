@@ -33,8 +33,9 @@ const processForShopify = (array) => {
           \n Author: ${Author || ""} \n ISBN: ${ISBN || ""} \n Format: ${
           Format || ""
         } \n Pages ${Pages || ""}`,
-        "Image Src": "",
         "metafield: custom.ratings":"",
+        "Image Src": "",
+      
         Vendor: "Bookspoint",
         Published: "TRUE",
         "Variant Barcode": `'${String(ISBN)}` || "",
